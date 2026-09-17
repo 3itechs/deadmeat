@@ -18,6 +18,13 @@ Open `DMS-CRO-Proposal.html` in any browser. In Section 04 there is a button,
 > Both files must stay in the same folder — the button between them is a
 > relative link.
 
+## Process
+
+Designs are built as **working HTML**, not Figma mockups. The client reviews a
+real, responsive page on a link — on their own phone — and approves it. The
+approved markup is then converted into native Shopify Liquid sections, so the
+design that gets signed off is the same file that ships.
+
 ## Notes
 
 - The landing page has a **CRO Notes** switch in the bottom-left corner. Turn it

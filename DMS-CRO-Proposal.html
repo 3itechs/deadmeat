@@ -621,10 +621,10 @@
       <div class="mh-mark">Confidential &middot; Sept 2026</div>
     </div>
     <h1>Stop Selling<br>Tools.<em>Sell the<br>Cookout.</em></h1>
-    <p class="mh-sub">A conversion, branding and landing-page program for deadmeatsociety.com &mdash; built as a reusable Figma design system, shipped as native Shopify sections, and tested until the winners are obvious.</p>
+    <p class="mh-sub">A conversion, branding and landing-page program for deadmeatsociety.com &mdash; designed as working pages you approve in your own browser, shipped as native Shopify sections, and tested until the winners are obvious.</p>
     <dl class="mh-meta">
       <div><dt>Engagement</dt><dd>CRO + Design + Build</dd></div>
-      <div><dt>Deliverable</dt><dd>Figma &rarr; Shopify Liquid</dd></div>
+      <div><dt>Deliverable</dt><dd>Live HTML &rarr; Shopify Liquid</dd></div>
       <div><dt>Output</dt><dd>6 landing-page archetypes</dd></div>
       <div><dt>Timeline</dt><dd>2-week sprint &middot; 10 days</dd></div>
     </dl>
@@ -873,6 +873,7 @@
     <p class="eyebrow">Already built &middot; No charge</p>
     <h3>LP-01 is designed.<em>Go look at it.</em></h3>
     <p>Rather than ask you to approve a wireframe, we built the first landing page in full &mdash; real copy, real specs pulled from your product page, your own customers&rsquo; reviews, and the Dead Skull drawn to scale. It is the advertorial described below, finished.</p>
+    <p>It is also a working demonstration of how we run: <b>this is not a mockup.</b> It is a real page, and it is exactly how every page in Section 07 gets approved &mdash; you open it on your own phone, scroll it with your own thumb, and sign it off before a line of it touches Shopify.</p>
     <p>There is a switch in the bottom-left corner marked <b>CRO Notes</b>. Flip it on and all nine zones light up &mdash; each one explains what it is doing and which finding from Section 01 it answers. That switch is for this presentation only; it would not ship on the live page.</p>
     <a class="showcase-cta" href="DMS-Landing-Page-01.html" target="_blank" rel="noopener">Open the LP-01 design &rarr;</a>
     <div class="showcase-note">Opens in a new tab &middot; Best viewed on a phone as well as desktop &mdash; the sticky Add to Cart bar and the mobile layout are part of the design, not an afterthought.</div>
@@ -1018,31 +1019,35 @@
     <div class="sec-num">05</div>
     <div>
       <h2>How We Build It</h2>
-      <p class="lede">The reason six landing pages is realistic rather than six times the work: we design and code a component library once, then assemble pages from it. Page one is the expensive one. Page six takes days.</p>
+      <p class="lede">We design in the browser, not in Figma. You approve a real, working page on a private link &mdash; on your own phone, at your own thumb speed &mdash; and that approved page becomes the Shopify build. The design you sign off on is the thing that ships, because it is literally the same file.</p>
     </div>
   </div>
 
   <div class="cols">
     <div class="block">
-      <h4>1 &middot; Design system in Figma</h4>
-      <p>Colour and type tokens, spacing scale, and every block above built as a Figma component with variants &mdash; desktop and mobile. Nothing gets designed twice, and every page inherits the same rules.</p>
+      <h4>1 &middot; Designed as working HTML</h4>
+      <p>Every block is built as real, responsive HTML with proper colour and type tokens &mdash; the component library the whole programme is assembled from. The page you review is not a picture of a page.</p>
     </div>
     <div class="block">
-      <h4>2 &middot; Coded as Shopify sections</h4>
-      <p>Each Figma component ships as a native Liquid section with schema settings. No page-builder app, no monthly fee, no third-party script slowing the store &mdash; and it stays in your theme if we ever part ways.</p>
+      <h4>2 &middot; Reviewed on a private link</h4>
+      <p>Each page goes to a staging URL you can open anywhere and forward to anyone. You see the real type rendering, the real responsive behaviour, and the real sticky Add to Cart under your own thumb &mdash; then approve or mark it up.</p>
     </div>
     <div class="block">
-      <h4>3 &middot; You keep control</h4>
-      <p>Because every section exposes settings, your team edits headlines, images, prices and offers directly in the Shopify theme editor. New page, new test, new season &mdash; no developer required for copy changes.</p>
+      <h4>3 &middot; Converted to Shopify sections</h4>
+      <p>Once approved, the same markup and CSS become native Liquid sections with schema settings. No page-builder app, no monthly fee, no third-party script &mdash; and it stays in your theme if we ever part ways.</p>
     </div>
     <div class="block">
-      <h4>4 &middot; Speed is a feature</h4>
-      <p>Hand-written Liquid outperforms builder-generated markup on Core Web Vitals, and on mobile that difference is conversion, not vanity. We hold a performance budget on every page we ship.</p>
+      <h4>4 &middot; You keep control</h4>
+      <p>Every section exposes settings, so your team edits headlines, images, prices and offers directly in the Shopify theme editor. New page, new test, new season &mdash; no developer needed for copy changes.</p>
     </div>
   </div>
 
   <div class="note">
-    <b>On Replo and the page builders:</b> they are genuinely good for non-technical teams shipping one-off pages, and if speed to first page is the only priority we can start there. But no builder imports Figma cleanly, they add a monthly cost and a script, and pages built in them don&rsquo;t survive leaving the app. Since a Figma design system is being produced either way, coding it straight to Liquid removes the middle layer instead of paying rent on it.
+    <b>Why not Figma?</b> A Figma file is a drawing of a website. It cannot show you how the headline actually wraps on a 375px phone, how the type really renders, or how the sticky Add to Cart feels under a thumb &mdash; and those are exactly the things that were wrong on the current site. Designing in the browser also removes an entire translation step: there is no &ldquo;the build does not match the design,&rdquo; because the design <em>is</em> the build. On a two-week sprint, that step is days we do not have. <b>The trade-off, stated honestly:</b> exploring ten wildly different directions is faster in Figma than in code. So we explore loosely and cheaply up front, then commit early and refine in the browser &mdash; where refinement is faster. If you later need design assets beyond the web &mdash; packaging, print, an ad-creative library &mdash; that is a separate Figma exercise, and we should scope it separately rather than pay for it here.
+  </div>
+
+  <div class="note">
+    <b>On Replo and the page builders:</b> they are genuinely good for non-technical teams shipping one-off pages, and if speed to a first page is the only priority we can start there. But they add a monthly cost and a third-party script, and pages built in them do not survive leaving the app. Hand-written Liquid also outperforms builder-generated markup on Core Web Vitals &mdash; and on mobile that difference is conversion, not vanity. We hold a performance budget on every page we ship.
   </div>
 </section>
 
@@ -1123,20 +1128,20 @@
           <td class="ph">&mdash;</td>
         </tr>
         <tr>
-          <td><span class="phase-tag">DAYS 2&ndash;3</span><br><b>Design system</b></td>
-          <td>Figma library built: colour and type tokens, spacing scale, and every shared block &mdash; hero, trust row, review wall, charity block, spec table, sticky ATC, FAQ &mdash; as components with mobile variants.</td>
-          <td>Figma handover</td>
+          <td><span class="phase-tag">DAYS 2&ndash;3</span><br><b>Component library</b></td>
+          <td>The shared blocks built as working responsive HTML &mdash; hero, trust row, review wall, charity block, spec table, sticky ATC, FAQ &mdash; on locked colour, type and spacing tokens.</td>
+          <td>Staging link</td>
           <td class="ph">&mdash;</td>
         </tr>
         <tr>
-          <td><span class="phase-tag">DAYS 4&ndash;5</span><br><b>Page design</b></td>
-          <td>LP-02 Direct-Response and LP-03 Kit Builder designed in full. LP-01 is already done &mdash; see Section 04 &mdash; so day four starts one page ahead.</td>
-          <td>Design review</td>
+          <td><span class="phase-tag">DAYS 4&ndash;5</span><br><b>Page design &amp; sign-off</b></td>
+          <td>LP-02 Direct-Response and LP-03 Kit Builder designed in full and posted to the staging link for review on real devices. LP-01 is already done &mdash; see Section 04 &mdash; so day four starts one page ahead.</td>
+          <td>Approval on device</td>
           <td class="ph">&mdash;</td>
         </tr>
         <tr>
-          <td><span class="phase-tag">DAYS 6&ndash;7</span><br><b>Build the library</b></td>
-          <td>Every component coded as a native Shopify Liquid section with schema settings. LP-01 and LP-02 assembled, QA&rsquo;d on real devices, and pushed live with tracking attached.</td>
+          <td><span class="phase-tag">DAYS 6&ndash;7</span><br><b>Convert to Shopify</b></td>
+          <td>The approved markup converted into native Liquid sections with schema settings. LP-01 and LP-02 assembled in the theme, QA&rsquo;d on real devices, and pushed live with tracking attached.</td>
           <td>&#10003; LP-01, LP-02</td>
           <td class="ph">&mdash;</td>
         </tr>
