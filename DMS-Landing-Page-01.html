@@ -1,0 +1,935 @@
+<title>The Cookout Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+
+<style>
+  :root{
+    --char:#0E0D0C;
+    --char-2:#191614;
+    --char-3:#241F1B;
+    --bone:#F2EDE6;
+    --bone-dim:#C6BCB1;
+    --smoke:#8B7F74;
+    --ember:#D6301A;
+    --ember-hi:#F03A21;
+    --flame:#E8833A;
+    --flame-soft:#F7B57C;
+    --steel:#B9BDC0;
+    --verified:#7CA355;
+    --rule:#332B26;
+
+    --gut:clamp(16px,4.2vw,22px);
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important;transition:none!important}
+  }
+
+  body{
+    margin:0;
+    background:var(--char);
+    color:var(--bone);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:17.5px;
+    line-height:1.66;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:86px; /* clears sticky ATC */
+    overflow-x:hidden;
+  }
+  @media (max-width:480px){ body{font-size:16.5px;line-height:1.62} }
+
+  .wrap{max-width:700px;margin:0 auto;padding-inline:var(--gut)}
+  .wrap-wide{max-width:1040px;margin:0 auto;padding-inline:var(--gut)}
+
+  h1,h2,h3,.anton{
+    font-family:"Anton","Arial Narrow",Impact,sans-serif;
+    text-transform:uppercase;font-weight:400;
+    letter-spacing:.005em;line-height:.92;margin:0;text-wrap:balance;
+  }
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  p{margin:0 0 1.1em}
+  p:last-child{margin-bottom:0}
+  img{max-width:100%;display:block}
+
+  /* ============ STICKY HEADER ============ */
+  .bar{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:60;
+    background:rgba(14,13,12,.95);border-bottom:1px solid var(--rule);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  }
+  .bar-in{
+    max-width:1040px;margin:0 auto;padding:9px var(--gut);
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .logo{display:flex;align-items:center;gap:8px;min-width:0}
+  .logo svg{flex:none}
+  .logo span{
+    font-family:"Anton",sans-serif;text-transform:uppercase;
+    font-size:13.5px;line-height:.92;letter-spacing:.02em;color:var(--bone);
+  }
+  @media (max-width:380px){ .logo span{display:none} }
+  .bar-cta{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;
+    background:var(--ember);color:#fff;border:0;
+    padding:10px 14px;cursor:pointer;white-space:nowrap;text-decoration:none;
+    transition:background .15s ease;
+  }
+  .bar-cta:hover,.bar-cta:focus-visible{background:var(--ember-hi)}
+
+  /* ============ EDITORIAL KICKER ============ */
+  .kicker{border-bottom:1px solid var(--rule);background:var(--char-2)}
+  .kicker-in{
+    max-width:1040px;margin:0 auto;padding:7px var(--gut);
+    display:flex;gap:8px 16px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--smoke);
+  }
+  .kicker b{color:var(--flame);font-weight:600}
+
+  /* ============ PHOTO SLOTS ============ */
+  .shot{
+    position:relative;overflow:hidden;
+    background:var(--char-3);
+    border:1px solid var(--rule);
+    display:flex;align-items:center;justify-content:center;
+    isolation:isolate;
+  }
+  .shot::after{
+    content:'';position:absolute;inset:0;z-index:2;
+    background-image:var(--grain);
+    opacity:.16;mix-blend-mode:overlay;pointer-events:none;
+  }
+  .shot-fire{background:
+    radial-gradient(95% 78% at 50% 108%,#F0621E 0%,#B32A0C 24%,#5A1A0A 48%,#241310 70%,#120D0B 100%)}
+  .shot-smoke{background:
+    radial-gradient(85% 75% at 30% 20%,#4A4F52 0%,#2C3033 40%,#17191A 75%,#101112 100%)}
+  .shot-meat{background:
+    radial-gradient(90% 80% at 62% 34%,#8C3A22 0%,#4E1E12 42%,#241310 74%,#130C0A 100%)}
+  .shot-crowd{background:
+    radial-gradient(88% 82% at 50% 88%,#C9762E 0%,#7A3F17 32%,#341B0E 66%,#150E0A 100%)}
+
+  .shot-tag{
+    position:absolute;top:0;left:0;z-index:4;
+    font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
+    letter-spacing:.17em;text-transform:uppercase;
+    background:var(--char);color:var(--flame);
+    padding:5px 9px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .shot-brief{
+    position:relative;z-index:3;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11.5px;line-height:1.7;letter-spacing:.03em;
+    color:rgba(255,246,238,.82);
+    text-align:center;max-width:36ch;
+    padding:38px 18px 16px;
+    text-shadow:0 1px 14px rgba(0,0,0,.85);
+  }
+  .shot-brief b{
+    display:block;color:#fff;font-weight:600;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;
+  }
+  .shot-brief i{
+    display:block;font-style:normal;margin-top:8px;
+    color:rgba(255,246,238,.5);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  }
+
+  /* ============ HERO — headline and image side by side ============ */
+  .hero{border-bottom:1px solid var(--rule)}
+  .hero-wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,44%);
+    gap:clamp(24px,4.5vw,48px);
+    align-items:center;
+  }
+  @media (max-width:880px){
+    .hero-wrap{grid-template-columns:1fr;gap:clamp(20px,5vw,30px)}
+  }
+  .hero-shot{
+    aspect-ratio:4/5;
+    flex-direction:column;justify-content:flex-end;
+    padding:0;
+  }
+  @media (max-width:880px){ .hero-shot{aspect-ratio:3/2} }
+  @media (max-width:420px){ .hero-shot{aspect-ratio:4/5} }
+
+  .hero-art{
+    position:absolute;z-index:3;
+    top:50%;left:50%;
+    transform:translate(-50%,-58%);
+    width:clamp(96px,26%,150px);height:auto;
+    filter:drop-shadow(0 22px 42px rgba(0,0,0,.78));
+  }
+  .hero-shot .shot-brief{
+    padding:14px 16px 16px;
+    max-width:none;text-align:left;
+    background:linear-gradient(180deg,transparent,rgba(10,7,6,.82) 42%);
+    width:100%;
+  }
+
+  /* ============ HEADLINE ============ */
+  .lede-sec{padding-block:clamp(30px,6vw,48px) clamp(24px,5vw,40px)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--flame);margin:0 0 14px;
+  }
+  h1{font-size:clamp(40px,11.5vw,84px)}
+  h1 em{font-style:normal;color:var(--ember-hi);display:block}
+  .deck{
+    font-size:clamp(18px,3.6vw,23px);line-height:1.45;color:var(--bone-dim);
+    margin-top:18px;max-width:34ch;font-style:italic;
+  }
+  .byline{
+    margin-top:20px;padding-top:13px;border-top:1px solid var(--rule);
+    display:flex;gap:6px 14px;flex-wrap:wrap;
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);
+  }
+
+  /* ============ ARTICLE ============ */
+  .body-sec{padding-block:clamp(30px,6vw,46px)}
+  .body-sec p{max-width:62ch}
+  .drop::first-letter{
+    font-family:"Anton",sans-serif;float:left;
+    font-size:clamp(48px,13vw,64px);line-height:.8;
+    padding:6px 10px 0 0;color:var(--ember-hi);
+  }
+  .pull{
+    margin:clamp(26px,5vw,36px) 0;padding:18px 0 18px 20px;
+    border-left:4px solid var(--ember);
+    font-size:clamp(21px,4.6vw,30px);line-height:1.22;
+    font-weight:500;color:var(--bone);font-style:italic;max-width:24ch;
+  }
+  h2.sec{font-size:clamp(28px,7.5vw,50px);margin:clamp(32px,6vw,46px) 0 16px}
+  h2.sec em{font-style:normal;color:var(--flame)}
+
+  /* ============ FAILURE GRID ============ */
+  .fails{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));
+    gap:1px;background:var(--rule);border:1px solid var(--rule);margin:24px 0;
+  }
+  .fail{background:var(--char-2);padding:18px 17px}
+  .fail .n{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;
+    letter-spacing:.16em;color:var(--ember-hi);margin-bottom:8px;
+  }
+  .fail p{font-size:15px;line-height:1.55;color:var(--bone-dim);margin:0;max-width:none}
+
+  /* ============ COST MATH ============ */
+  .math{margin:clamp(26px,5vw,36px) 0;border:1px solid var(--rule);background:var(--char-2)}
+  .math-h{
+    padding:12px 17px;border-bottom:1px solid var(--rule);
+    font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--flame);
+  }
+  .math-rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:1px;background:var(--rule)}
+  .math-col{background:var(--char-2);padding:19px 17px}
+  .math-col h4{
+    font-family:"Anton",sans-serif;text-transform:uppercase;font-weight:400;
+    font-size:18px;margin:0 0 11px;letter-spacing:.02em;
+  }
+  .math-col.them h4{color:var(--smoke)}
+  .math-col.us h4{color:var(--flame)}
+  .math-line{
+    display:flex;justify-content:space-between;gap:12px;
+    font-size:14px;padding:6px 0;border-bottom:1px dashed #2E2723;color:var(--bone-dim);
+  }
+  .math-line:last-of-type{border-bottom:0}
+  .math-line span:last-child{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--bone)}
+  .math-tot{
+    margin-top:11px;padding-top:11px;border-top:2px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;
+  }
+  .math-tot b{font-family:"Anton",sans-serif;font-size:27px;font-weight:400;letter-spacing:.01em}
+  .math-col.them .math-tot b{color:var(--smoke)}
+  .math-col.us .math-tot b{color:var(--flame)}
+  .math-tot span{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--smoke);
+  }
+
+  /* ============ CTA ============ */
+  .cta-block{
+    margin:clamp(30px,6vw,42px) 0;padding:clamp(22px,5vw,30px) var(--gut);
+    background:var(--char-2);border:1px solid var(--rule);border-top:4px solid var(--ember);
+    text-align:center;
+  }
+  .cta-block h3{font-size:clamp(23px,5.4vw,34px);margin-bottom:10px}
+  .cta-block p{font-size:15px;color:var(--bone-dim);max-width:46ch;margin:0 auto 18px}
+  .btn{
+    display:inline-block;background:var(--ember);color:#fff;
+    font-family:"Anton",sans-serif;text-transform:uppercase;font-weight:400;
+    font-size:clamp(17px,3.4vw,21px);letter-spacing:.03em;
+    padding:15px clamp(20px,5vw,34px);border:0;cursor:pointer;text-decoration:none;
+    transition:background .15s ease;
+  }
+  .btn:hover,.btn:focus-visible{background:var(--ember-hi)}
+  .btn-sub{
+    margin-top:11px;font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--smoke);
+  }
+
+  /* ============ REVEAL ============ */
+  .reveal{background:var(--char-2);border-block:1px solid var(--rule);padding-block:clamp(34px,7vw,54px)}
+  .reveal-grid{
+    display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);
+    gap:clamp(22px,5vw,40px);align-items:center;
+  }
+  @media (max-width:720px){
+    .reveal-grid{grid-template-columns:1fr}
+    .reveal-art{justify-self:center}
+  }
+  .reveal-art{width:clamp(140px,34vw,190px);height:auto}
+  .specs{
+    margin-top:20px;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+  }
+  .spec{background:var(--char-3);padding:10px 12px}
+  .spec dt{
+    font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--flame);margin-bottom:3px;
+  }
+  .spec dd{margin:0;font-size:14.5px;font-weight:500;line-height:1.35}
+
+  /* ============ ACTION STRIP ============ */
+  .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:var(--rule)}
+  .strip .shot{border:0;aspect-ratio:4/3}
+
+  /* ============ REVIEWS ============ */
+  .rev-sec{padding-block:clamp(34px,7vw,52px)}
+  .rev-head{
+    display:flex;align-items:baseline;gap:6px 16px;flex-wrap:wrap;
+    padding-bottom:13px;border-bottom:2px solid var(--rule);margin-bottom:22px;
+  }
+  .stars{color:var(--ember-hi);font-size:18px;letter-spacing:.08em;line-height:1}
+  .rev-score{font-family:"Anton",sans-serif;font-size:26px;letter-spacing:.02em}
+  .rev-n{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--smoke);
+  }
+  .revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:15px}
+  .rev{
+    background:var(--char-2);border:1px solid var(--rule);border-top:2px solid var(--ember);
+    display:flex;flex-direction:column;
+  }
+  .rev .shot{border:0;border-bottom:1px solid var(--rule);aspect-ratio:16/10}
+  .rev-body{padding:16px 17px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .rev p{font-size:15.5px;line-height:1.52;margin:0;max-width:none;flex:1}
+  .rev .who{
+    display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--smoke);
+  }
+  .vtag{color:var(--verified);font-weight:600}
+
+  /* ============ CHARITY ============ */
+  .give{border-block:1px solid var(--rule)}
+  .give-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--rule)}
+  .give .shot{border:0;min-height:230px}
+  .give-txt{
+    background:linear-gradient(170deg,#1D1512 0%,var(--char-2) 100%);
+    padding:clamp(28px,6vw,44px) var(--gut);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .give-pct{
+    font-family:"Anton",sans-serif;font-size:clamp(58px,15vw,104px);
+    line-height:.84;color:var(--flame);letter-spacing:-.01em;margin-bottom:6px;
+  }
+  .give h2{font-size:clamp(26px,6vw,42px);margin-bottom:13px}
+  .give h2 em{font-style:normal;color:var(--flame)}
+  .give-txt p{max-width:44ch;color:var(--bone-dim);font-size:16px}
+
+  /* ============ OFFER ============ */
+  .close{padding-block:clamp(36px,7vw,54px) clamp(26px,5vw,38px)}
+  .offer{border:1px solid var(--rule);background:var(--char-2);border-top:5px solid var(--ember)}
+  .offer-grid{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr)}
+  @media (max-width:660px){ .offer-grid{grid-template-columns:1fr} }
+  .offer-art{
+    background:var(--char-3);padding:22px;
+    display:flex;align-items:center;justify-content:center;
+    border-right:1px solid var(--rule);
+  }
+  @media (max-width:660px){ .offer-art{border-right:0;border-bottom:1px solid var(--rule)} }
+  .offer-art svg{width:clamp(90px,26vw,130px);height:auto}
+  .offer-body{padding:clamp(22px,5vw,28px) var(--gut)}
+  .offer-body h3{font-size:clamp(24px,5.6vw,38px);margin-bottom:6px}
+  .price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:13px 0 4px}
+  .price{font-family:"Anton",sans-serif;font-size:clamp(34px,8vw,42px);line-height:1;letter-spacing:.01em}
+  .price-note{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);
+  }
+  .ship-bar{margin:16px 0 18px}
+  .ship-track{height:7px;background:var(--char-3);border:1px solid var(--rule);overflow:hidden}
+  .ship-fill{height:100%;width:36.7%;background:linear-gradient(90deg,var(--ember),var(--flame))}
+  .ship-txt{
+    margin-top:7px;font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.07em;color:var(--bone-dim);line-height:1.6;
+  }
+  .ship-txt b{color:var(--flame);font-weight:600}
+  .trust{
+    margin-top:18px;padding-top:15px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:11px;
+  }
+  .trust div{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.09em;line-height:1.5;color:var(--smoke);text-transform:uppercase;
+  }
+  .trust div b{display:block;color:var(--bone);font-weight:600;margin-bottom:2px}
+
+  /* ============ FOOTER ============ */
+  .ft{border-top:1px solid var(--rule);background:var(--char-2);padding-block:24px}
+  .ft-in{
+    max-width:1040px;margin:0 auto;padding-inline:var(--gut);
+    display:flex;gap:10px 20px;flex-wrap:wrap;justify-content:space-between;align-items:center;
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--smoke);
+  }
+
+  /* ============ STICKY ATC ============ */
+  .stick{
+    position:fixed;left:0;right:0;bottom:0;z-index:70;
+    background:rgba(14,13,12,.97);border-top:1px solid var(--rule);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    padding:9px var(--gut) calc(9px + env(safe-area-inset-bottom,0px));
+    display:flex;align-items:center;gap:12px;justify-content:space-between;
+  }
+  .stick-l{min-width:0}
+  .stick-l b{
+    display:block;font-family:"Anton",sans-serif;font-size:14px;
+    letter-spacing:.02em;text-transform:uppercase;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .stick-l span{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--smoke)}
+  .stick .btn{font-size:15px;padding:11px 20px;flex:none}
+
+  /* ============ CRO ANNOTATION LAYER ============ */
+  .anno-toggle{
+    position:fixed;z-index:80;
+    left:var(--gut);bottom:calc(76px + env(safe-area-inset-bottom,0px));
+    background:#100E0D;color:var(--bone);
+    border:1px solid var(--flame);border-radius:999px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;
+    padding:8px 15px 8px 9px;cursor:pointer;line-height:1;
+    box-shadow:0 10px 30px rgba(0,0,0,.65),0 0 0 4px rgba(232,131,58,.1);
+    display:flex;align-items:center;gap:10px;
+    transition:background .16s ease,color .16s ease,box-shadow .16s ease;
+  }
+  .anno-toggle .sw{
+    width:34px;height:19px;border-radius:999px;flex:none;
+    background:#3A302A;border:1px solid #574940;
+    position:relative;transition:background .16s ease,border-color .16s ease;
+  }
+  .anno-toggle .sw i{
+    position:absolute;top:2px;left:2px;
+    width:13px;height:13px;border-radius:50%;
+    background:var(--bone-dim);
+    transition:transform .18s cubic-bezier(.4,0,.2,1),background .16s ease;
+  }
+  .anno-toggle:hover{box-shadow:0 10px 30px rgba(0,0,0,.65),0 0 0 5px rgba(232,131,58,.18)}
+  .anno-toggle[aria-pressed="true"]{background:var(--flame);color:#17110C}
+  .anno-toggle[aria-pressed="true"] .sw{background:#7A3B12;border-color:#5E2C0C}
+  .anno-toggle[aria-pressed="true"] .sw i{transform:translateX(15px);background:#FFF3E8}
+  @media (max-width:420px){
+    .anno-toggle{font-size:9.5px;letter-spacing:.1em;padding:7px 12px 7px 8px;gap:8px}
+    .anno-toggle .sw{width:30px;height:17px}
+    .anno-toggle .sw i{width:11px;height:11px}
+    .anno-toggle[aria-pressed="true"] .sw i{transform:translateX(13px)}
+  }
+
+  /* zones */
+  .zone{position:relative}
+  .zone-badge{display:none}
+
+  body.show-anno .zone{
+    outline:1px dashed rgba(232,131,58,.5);
+    outline-offset:7px;
+  }
+  body.show-anno .zone::before{
+    content:'';position:absolute;inset:-7px;z-index:1;pointer-events:none;
+    background:radial-gradient(100% 76% at 50% 0%,rgba(232,131,58,.14),rgba(232,131,58,.04) 52%,transparent 78%);
+  }
+  body.show-anno .zone > *{position:relative;z-index:2}
+
+  body.show-anno .zone-badge{
+    display:flex;align-items:center;justify-content:center;
+    position:absolute;z-index:6;
+    top:-18px;left:-14px;
+    width:42px;height:42px;border-radius:50%;
+    background:var(--flame);color:#17110C;
+    font-family:"Anton",sans-serif;font-size:18px;letter-spacing:.02em;
+    border:3px solid var(--char);
+    box-shadow:0 0 0 3px rgba(232,131,58,.28),0 0 30px rgba(232,131,58,.45);
+  }
+  @media (max-width:560px){
+    body.show-anno .zone-badge{
+      width:34px;height:34px;font-size:15px;top:-13px;left:-6px;border-width:2px;
+    }
+    body.show-anno .zone{outline-offset:5px}
+    body.show-anno .zone::before{inset:-5px}
+  }
+
+  .anno{display:none}
+  body.show-anno .anno{
+    display:block;position:relative;z-index:5;
+    margin:16px 0;padding:13px 15px;
+    background:rgba(232,131,58,.1);
+    border:1px solid rgba(232,131,58,.32);
+    border-left:3px solid var(--flame);
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11.5px;line-height:1.66;letter-spacing:.01em;
+    color:var(--flame-soft);text-transform:none;max-width:none;
+  }
+  body.show-anno .anno b{
+    display:block;color:#FFD3AC;font-weight:600;
+    font-size:9.5px;letter-spacing:.17em;text-transform:uppercase;margin-bottom:5px;
+  }
+  body.show-anno .anno em{font-style:italic;color:#FFD3AC}
+
+  /* photo-brief visibility follows the notes toggle for the in-copy slots */
+  body.show-anno .shot-tag{background:var(--flame);color:#17110C;border-color:var(--flame)}
+
+  :focus-visible{outline:2px solid var(--flame);outline-offset:3px}
+</style>
+
+<!-- ============ STICKY HEADER ============ -->
+<div class="bar">
+  <div class="bar-in">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 3C11.7 3 5 9.4 5 17.3c0 4.6 2.3 8.7 5.9 11.3v4.1c0 2.4 2 4.3 4.4 4.3h9.4c2.4 0 4.4-1.9 4.4-4.3v-4.1c3.6-2.6 5.9-6.7 5.9-11.3C35 9.4 28.3 3 20 3z" fill="#D6301A"/>
+        <ellipse cx="14.2" cy="17" rx="3.7" ry="4.3" fill="#0E0D0C"/>
+        <ellipse cx="25.8" cy="17" rx="3.7" ry="4.3" fill="#0E0D0C"/>
+        <path d="M20 22.5l-2.3 4.2h4.6z" fill="#0E0D0C"/>
+        <rect x="15" y="30.5" width="2.6" height="5.5" fill="#0E0D0C"/>
+        <rect x="18.7" y="30.5" width="2.6" height="5.5" fill="#0E0D0C"/>
+        <rect x="22.4" y="30.5" width="2.6" height="5.5" fill="#0E0D0C"/>
+      </svg>
+      <span>Dead Meat<br>Society</span>
+    </div>
+    <a href="#offer" class="bar-cta">Get the spatula</a>
+  </div>
+</div>
+
+<button class="anno-toggle" id="annoBtn" aria-pressed="false" title="Toggle the CRO annotation layer">
+  <span class="sw" aria-hidden="true"><i></i></span><span id="annoLabel">CRO Notes</span>
+</button>
+
+<!-- shared SVG gradients -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5F6468"/><stop offset=".34" stop-color="#C3C7CA"/>
+      <stop offset=".62" stop-color="#8E9497"/><stop offset="1" stop-color="#4E5356"/>
+    </linearGradient>
+    <linearGradient id="grip" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#171717"/><stop offset=".35" stop-color="#3E3E3E"/>
+      <stop offset=".7" stop-color="#242424"/><stop offset="1" stop-color="#101010"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ============ KICKER ============ -->
+<div class="kicker">
+  <div class="kicker-in">
+    <div>The Pit &middot; <b>Grilling Culture</b></div>
+    <div>Read time 4 min</div>
+  </div>
+</div>
+
+<!-- ============ ZONE 1 — HERO ============ -->
+<div class="hero">
+  <div class="wrap-wide lede-sec">
+    <div class="zone">
+      <div class="zone-badge" aria-hidden="true">1</div>
+      <div class="hero-wrap">
+
+        <div>
+          <p class="eyebrow">Sponsored by Dead Meat Society</p>
+          <h1>The Cookout<em>Test</em></h1>
+          <p class="deck">You were up at four. You nursed it through the stall. And then you walked out to the grill holding a $12 spatula from a three-pack.</p>
+          <div class="byline">
+            <span>By The Dead Meat Society</span><span>&middot;</span><span>September 2026</span>
+          </div>
+        </div>
+
+        <div class="shot shot-fire hero-shot">
+          <span class="shot-tag">Photo 01 &middot; Hero</span>
+          <svg class="hero-art" viewBox="0 0 200 520" aria-label="The Dead Skull Spatula" role="img">
+          <rect x="86" y="8" width="28" height="26" rx="9" fill="#D6301A"/>
+          <rect x="93" y="14" width="5" height="14" rx="2.5" fill="#F03A21" opacity=".8"/>
+          <rect x="82" y="30" width="36" height="212" rx="15" fill="url(#grip)"/>
+          <rect x="82" y="104" width="36" height="9" fill="#EDEDED"/>
+          <rect x="82" y="130" width="36" height="9" fill="#EDEDED"/>
+          <rect x="82" y="156" width="36" height="9" fill="#EDEDED"/>
+          <rect x="88" y="36" width="7" height="196" rx="3.5" fill="#575757" opacity=".45"/>
+          <path d="M92 238h16l7 46H85z" fill="url(#steel)"/>
+          <path d="M52 282h96c4 0 7 3 7 7v128c0 26-24 47-55 47s-55-21-55-47V289c0-4 3-7 7-7z" fill="url(#steel)"/>
+          <path d="M45 300l10 7-10 7 10 7-10 7 10 7-10 7 10 7-10 7 10 7-10 7 10 7-10 7V300z" fill="#4E5356"/>
+          <ellipse cx="80" cy="345" rx="15" ry="18" fill="#0E0D0C"/>
+          <ellipse cx="120" cy="345" rx="15" ry="18" fill="#0E0D0C"/>
+          <path d="M100 372l-9 17h18z" fill="#0E0D0C"/>
+          <rect x="74" y="400" width="10" height="26" rx="3" fill="#0E0D0C"/>
+          <rect x="88" y="400" width="10" height="30" rx="3" fill="#0E0D0C"/>
+          <rect x="102" y="400" width="10" height="30" rx="3" fill="#0E0D0C"/>
+          <rect x="116" y="400" width="10" height="26" rx="3" fill="#0E0D0C"/>
+            <path d="M62 292h8v150c0 8 2 15 6 21-9-6-14-15-14-25z" fill="#E4E7E9" opacity=".22"/>
+          </svg>
+          <div class="shot-brief">
+            <b>The scene shot</b>
+            A griller at the open flame, mid-flip, the Dead Skull in hand. Shot low and close at dusk so the fire is the only light source. Face partly out of frame &mdash; the reader should picture themselves, not a model.
+            <i>4:5 portrait &middot; 1600&times;2000 &middot; Replaces this panel</i>
+          </div>
+        </div>
+
+      </div>
+      <div class="anno">
+        <b>Zone 1 &middot; Editorial framing + the thesis image</b>
+        Publisher kicker, byline and read-time make this read as an article rather than an ad &mdash; cold traffic will not accept a $54.99 price from a page that looks like a store. &ldquo;Sponsored&rdquo; stays visible because disclosure is required, and hiding it is how brands lose ad accounts. The image sits <em>beside</em> the headline rather than beneath it so both land above the fold on desktop; the photo has one job, which is to put the reader at their own cookout. A floating product cutout here would flip the page back into a store. Replaces the motion-blurred footage flagged in finding F-01.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 2 — PROBLEM ============ -->
+<div class="wrap body-sec">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">2</div>
+
+    <p class="drop">There is a moment at every cookout that nobody talks about. It is not when the meat comes off. It is about twenty minutes before that &mdash; when somebody wanders over with a beer, looks at what you are cooking, and then looks at what you are cooking it <em>with</em>.</p>
+
+    <p>You have been up since four. You babysat the temperature through the stall. You wrapped it, you rested it, and you already know it is the best brisket on the street. And you are moving it around with a bent aluminium spatula that came in a three-pack, with a handle that has been slowly melting since 2019.</p>
+
+    <p>The meat was perfect. The tool made it look like an accident.</p>
+
+    <p class="pull">Nobody compliments your thermometer. Everybody notices the thing in your hand.</p>
+
+    <p>This is the uncomfortable economics of grilling gear. You will happily spend $90 on a packer brisket and eighteen hours of your weekend on it, then reach for the cheapest object in the entire operation at the exact moment people are watching. The cook is private. The tool is public.</p>
+
+    <div class="anno">
+      <b>Zone 2 &middot; Problem before price</b>
+      The job of these 300 words is to make the reader feel a problem they did not know they had, so $54.99 lands as a solution instead of a shock. No product, no price and no CTA until that work is finished &mdash; this is the whole reason advertorials beat product pages on cold traffic.
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 3 — AGITATE ============ -->
+<div class="wrap-wide" style="padding-block:clamp(8px,2vw,16px)">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">3</div>
+    <div class="strip">
+      <div class="shot shot-smoke">
+        <span class="shot-tag">Photo 02 &middot; The problem</span>
+        <div class="shot-brief">
+          <b>Before</b>
+          The cheap spatula, honestly shot. Bent head, scorched plastic handle, discoloured from the dishwasher. Flat grey light, no styling &mdash; it should look like something out of the reader&rsquo;s own drawer.
+          <i>4:3 &middot; Cool, desaturated grade</i>
+        </div>
+      </div>
+      <div class="shot shot-meat">
+        <span class="shot-tag">Photo 03 &middot; The stakes</span>
+        <div class="shot-brief">
+          <b>After</b>
+          A finished brisket being lifted clean off the grate on the Dead Skull. Steam, visible bark, the blade taking the full weight without flex.
+          <i>4:3 &middot; Warm grade &middot; Matches Photo 02 framing</i>
+        </div>
+      </div>
+    </div>
+    <div class="anno">
+      <b>Zone 3 &middot; Contrast pair</b>
+      Deliberately shot as a matched pair &mdash; same angle, same crop, opposite grade. The comparison does the persuading before a single specification is mentioned, and the two frames work as a scroll-stopping ad creative on their own.
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 4 — THE MATH ============ -->
+<div class="wrap body-sec">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">4</div>
+
+    <h2 class="sec">Three ways a cheap<em>spatula fails you</em></h2>
+
+    <div class="fails">
+      <div class="fail">
+        <div class="n">01 &middot; THE FLEX</div>
+        <p>Thin stamped steel bends under a loaded brisket. You feel it give halfway through the lift, and then you are doing a two-handed rescue in front of an audience.</p>
+      </div>
+      <div class="fail">
+        <div class="n">02 &middot; THE MELT</div>
+        <p>Hollow plastic handles sit inches from a 450&deg;F grate. They soften, they warp, and eventually they smell like the inside of a hair dryer.</p>
+      </div>
+      <div class="fail">
+        <div class="n">03 &middot; THE CYCLE</div>
+        <p>It does not die dramatically. It just gets a little worse every season until you quietly replace it, again, and never counted what that cost you.</p>
+      </div>
+    </div>
+
+    <p>That last one is worth doing the arithmetic on, because it is the argument most people never make to themselves.</p>
+
+    <div class="math">
+      <div class="math-h">Five years at the grill</div>
+      <div class="math-rows">
+        <div class="math-col them">
+          <h4>The three-pack</h4>
+          <div class="math-line"><span>Cost each</span><span>$12.00</span></div>
+          <div class="math-line"><span>Replaced</span><span>Every season</span></div>
+          <div class="math-line"><span>Over 5 years</span><span>5 &times; $12</span></div>
+          <div class="math-tot"><span>Five-year cost</span><b>$60</b></div>
+        </div>
+        <div class="math-col us">
+          <h4>The Dead Skull</h4>
+          <div class="math-line"><span>Cost once</span><span>$54.99</span></div>
+          <div class="math-line"><span>Replaced</span><span>Never</span></div>
+          <div class="math-line"><span>Over 5 years</span><span>$11 / year</span></div>
+          <div class="math-tot"><span>Five-year cost</span><b>$54.99</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p>Five years of buying the cheap one costs more than buying the good one once &mdash; and that is before you count the five seasons you spent with a tool you were mildly embarrassed by.</p>
+
+    <div class="anno">
+      <b>Zone 4 &middot; Reframe the price</b>
+      Answers the objection that kills this sale: &ldquo;it is a spatula, why is it fifty-five dollars?&rdquo; Cost-per-year turns a frightening one-time number into a boring recurring one. We are not arguing that it is cheap &mdash; we are arguing that the comparison was wrong.
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 5 — SOFT CTA ============ -->
+<div class="wrap">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">5</div>
+    <div class="cta-block">
+      <h3>Skip the article. Skip to the tool.</h3>
+      <p>If you already know how this ends, go straight to it.</p>
+      <a href="#offer" class="btn">See the Dead Skull</a>
+      <div class="btn-sub">4.95 &#9733; from 21 verified owners</div>
+    </div>
+    <div class="anno">
+      <b>Zone 5 &middot; Soft CTA</b>
+      Catches the minority who are already sold without interrupting everyone else. Deliberately low-pressure and placed at the natural pause after the proof &mdash; a hard sell here would break the editorial frame the whole page depends on.
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 6 — THE REVEAL ============ -->
+<div class="reveal">
+  <div class="wrap-wide">
+    <div class="zone">
+      <div class="zone-badge" aria-hidden="true">6</div>
+      <div class="reveal-grid">
+        <svg class="reveal-art" viewBox="0 0 200 320" aria-label="Dead Skull Spatula blade detail" role="img">
+          <path d="M92 8h16l7 46H85z" fill="url(#steel)"/>
+          <path d="M52 52h96c4 0 7 3 7 7v128c0 26-24 47-55 47s-55-21-55-47V59c0-4 3-7 7-7z" fill="url(#steel)"/>
+          <path d="M45 70l10 7-10 7 10 7-10 7 10 7-10 7 10 7-10 7 10 7-10 7 10 7-10 7V70z" fill="#4E5356"/>
+          <ellipse cx="80" cy="115" rx="15" ry="18" fill="#191614"/>
+          <ellipse cx="120" cy="115" rx="15" ry="18" fill="#191614"/>
+          <path d="M100 142l-9 17h18z" fill="#191614"/>
+          <rect x="74" y="170" width="10" height="26" rx="3" fill="#191614"/>
+          <rect x="88" y="170" width="10" height="30" rx="3" fill="#191614"/>
+          <rect x="102" y="170" width="10" height="30" rx="3" fill="#191614"/>
+          <rect x="116" y="170" width="10" height="26" rx="3" fill="#191614"/>
+          <path d="M62 62h8v150c0 8 2 15 6 21-9-6-14-15-14-25z" fill="#E4E7E9" opacity=".22"/>
+          <path d="M30 250v34M30 267h140M170 250v34" stroke="#4E5356" stroke-width="3" fill="none"/>
+          <text x="100" y="300" text-anchor="middle" fill="#8B7F74" font-family="IBM Plex Mono, monospace" font-size="15" letter-spacing="3">17.0 IN</text>
+        </svg>
+
+        <div>
+          <p class="eyebrow">The tool that started it</p>
+          <h2 class="sec" style="margin-top:0">Built heavy<em>on purpose</em></h2>
+          <p style="color:var(--bone-dim);font-size:16.5px">Two millimetres of grade-430 stainless in the head, so it does not flex when it is loaded. A silicone overmould on a nylon core, so the handle does not soften next to the fire. And a serrated leading edge that goes through bark instead of sliding off it.</p>
+          <p style="color:var(--bone-dim);font-size:16.5px">The skull is cut into the steel, not printed on it. It will outlast the grill.</p>
+
+          <dl class="specs">
+            <div class="spec"><dt>Head</dt><dd>2mm &middot; grade 430</dd></div>
+            <div class="spec"><dt>Length</dt><dd>17&Prime; overall</dd></div>
+            <div class="spec"><dt>Blade width</dt><dd>4.4&Prime;</dd></div>
+            <div class="spec"><dt>Handle</dt><dd>6.9&Prime; silicone grip</dd></div>
+            <div class="spec"><dt>Edge</dt><dd>Serrated</dd></div>
+            <div class="spec"><dt>Cleaning</dt><dd>Dishwasher safe</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="anno">
+        <b>Zone 6 &middot; The reveal</b>
+        Only now does the page become about a product. Every specification here is lifted straight from the existing product page &mdash; they were always strong, they were just buried in a bulleted list below the fold where nobody reading with a wallet open ever saw them.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 7 — PROOF ============ -->
+<div class="wrap-wide rev-sec">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">7</div>
+
+    <div class="rev-head">
+      <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="rev-score">4.95</span>
+      <span class="rev-n">21 verified reviews &middot; 20 of them five-star</span>
+    </div>
+
+    <div class="revs">
+      <div class="rev">
+        <div class="shot shot-meat">
+          <span class="shot-tag">UGC 01</span>
+          <div class="shot-brief"><b>Customer photo</b>Real owner shot, phone quality kept. Tool visible in a home backyard setting.</div>
+        </div>
+        <div class="rev-body">
+          <p>&ldquo;This thing is bad ass. This is not the flimsy tool I was suffering with. It&rsquo;s a big boy spatula meant for serious grilling. Guests are constantly asking me where they can get one.&rdquo;</p>
+          <div class="who"><span>Barry K.</span><span class="vtag">&#10003; Verified</span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="shot shot-crowd">
+          <span class="shot-tag">UGC 02</span>
+          <div class="shot-brief"><b>Customer photo</b>People around the grill. The social payoff, documented by a customer.</div>
+        </div>
+        <div class="rev-body">
+          <p>&ldquo;All of the products are an eye catcher for when I do have people over. Instantly, people are like &lsquo;oh that&rsquo;s cool dude, who makes that all?&rsquo;&rdquo;</p>
+          <div class="who"><span>Joshua Brown</span><span class="vtag">&#10003; Verified</span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="shot shot-smoke">
+          <span class="shot-tag">UGC 03</span>
+          <div class="shot-brief"><b>Customer photo</b>Tool hung in a garage or on the grill cart, as owners actually store it.</div>
+        </div>
+        <div class="rev-body">
+          <p>&ldquo;I LOVE THIS BBQ SPATULA! It looks good, grips good, works amazingly well, oh, and did I say it looks good?! Perfect length and heft.&rdquo;</p>
+          <div class="who"><span>Ken Werner</span><span class="vtag">&#10003; Verified</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="anno">
+      <b>Zone 7 &middot; Proof, filtered to the product</b>
+      Real reviews from the live store, and every one was chosen because it describes the <em>social</em> payoff rather than the steel &mdash; the page&rsquo;s own argument, confirmed by strangers instead of by the brand. Customer photography outperforms studio work in this slot. Note the fix from finding F-04: only spatula reviews appear on a spatula page.
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 8 — CHARITY ============ -->
+<div class="give">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">8</div>
+    <div class="give-grid">
+      <div class="shot shot-crowd">
+        <span class="shot-tag">Photo 04 &middot; Community</span>
+        <div class="shot-brief">
+          <b>The giving-back shot</b>
+          A real serving line or community cookout involving a charity partner. Documentary, unposed, people eating. Partner logos sit beneath as a row.
+          <i>Square or 4:3 &middot; Must be genuine, never stock</i>
+        </div>
+      </div>
+      <div class="give-txt">
+        <div class="give-pct">10%</div>
+        <h2>Of net profits go<em>to feeding people</em></h2>
+        <p>Every tool sold puts meals on tables that are not yours. It is the part of this that has nothing to do with looking good at a cookout &mdash; and the reason a lot of people buy two.</p>
+        <div class="anno">
+          <b>Zone 8 &middot; Permission to spend</b>
+          Placed immediately before the price on purpose. A $54.99 spatula is an indulgence; the charity commitment converts it into a defensible one &mdash; which matters most to the gift buyer, and to anyone who has to justify the purchase to somebody else in the house. Currently one line of small type on the live site: finding F-12.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ZONE 9 — OFFER ============ -->
+<div class="wrap-wide close" id="offer">
+  <div class="zone">
+    <div class="zone-badge" aria-hidden="true">9</div>
+    <div class="offer">
+      <div class="offer-grid">
+        <div class="offer-art">
+          <svg viewBox="0 0 200 250" aria-hidden="true">
+            <path d="M92 8h16l7 46H85z" fill="url(#steel)"/>
+            <path d="M52 52h96c4 0 7 3 7 7v128c0 26-24 47-55 47s-55-21-55-47V59c0-4 3-7 7-7z" fill="url(#steel)"/>
+            <ellipse cx="80" cy="115" rx="15" ry="18" fill="#241F1B"/>
+            <ellipse cx="120" cy="115" rx="15" ry="18" fill="#241F1B"/>
+            <path d="M100 142l-9 17h18z" fill="#241F1B"/>
+            <rect x="74" y="170" width="10" height="26" rx="3" fill="#241F1B"/>
+            <rect x="88" y="170" width="10" height="30" rx="3" fill="#241F1B"/>
+            <rect x="102" y="170" width="10" height="30" rx="3" fill="#241F1B"/>
+            <rect x="116" y="170" width="10" height="26" rx="3" fill="#241F1B"/>
+          </svg>
+        </div>
+        <div class="offer-body">
+          <p class="eyebrow" style="margin-bottom:8px">Dead Meat Society</p>
+          <h3>The Dead Skull Spatula</h3>
+          <div class="price-row">
+            <span class="price">$54.99</span>
+            <span class="price-note">In stock &middot; ships in 1&ndash;2 days</span>
+          </div>
+
+          <div class="ship-bar">
+            <div class="ship-track"><div class="ship-fill"></div></div>
+            <div class="ship-txt">Add <b>$95.01</b> more to unlock free shipping &mdash; or start with the kit.</div>
+          </div>
+
+          <a href="#offer" class="btn" style="width:100%;text-align:center">Add to cart &mdash; $54.99</a>
+          <div class="btn-sub" style="text-align:center">10% of net profits donated &middot; 4.95 &#9733; from 21 owners</div>
+
+          <div class="trust">
+            <div><b>Free returns</b>30-day window</div>
+            <div><b>Secure checkout</b>All major cards</div>
+            <div><b>Built to last</b>Pass-it-down build</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="anno">
+      <b>Zone 9 &middot; The close</b>
+      Price, proof, shipping progress and reassurance in one frame so nothing needs a scroll to resolve. The progress bar is finding F-06 made visible: the shopper is told exactly what stands between them and free shipping, which is the cheapest average-order-value lift available on this store.
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div class="ft">
+  <div class="ft-in">
+    <span>&copy; 2026 Dead Meat Society</span>
+    <span>Flame &middot; Family &middot; Community &mdash; Feed Everyone</span>
+  </div>
+</div>
+
+<!-- ============ STICKY ATC ============ -->
+<div class="stick">
+  <div class="stick-l">
+    <b>Dead Skull Spatula</b>
+    <span class="mono">$54.99 &middot; 4.95 &#9733;</span>
+  </div>
+  <a href="#offer" class="btn">Add to cart</a>
+</div>
+
+<script>
+  (function(){
+    var btn   = document.getElementById('annoBtn');
+    var label = document.getElementById('annoLabel');
+    var KEY   = 'dms-lp01-anno';
+
+    function paint(on){
+      document.body.classList.toggle('show-anno', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      label.textContent = on ? 'CRO Notes On' : 'CRO Notes';
+    }
+
+    var saved = false;
+    try { saved = localStorage.getItem(KEY) === '1'; } catch (e) {}
+    paint(saved);
+
+    btn.addEventListener('click', function(){
+      var on = !document.body.classList.contains('show-anno');
+      paint(on);
+      try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+    });
+  })();
+</script>

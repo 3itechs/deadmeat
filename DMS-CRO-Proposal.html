@@ -1,0 +1,1226 @@
+<title>Dead Meat Society Growth Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+
+<style>
+  :root{
+    --paper:#F6EFE4;
+    --peach:#F2DAC6;
+    --peach-deep:#E8C6AB;
+    --ink:#1D1714;
+    --ink-soft:#4A3F39;
+    --smoke:#7C6F65;
+    --rule:#D8CBB9;
+    --rule-hard:#B9A78F;
+    --ember:#BC3218;
+    --ember-deep:#8E2411;
+    --flame:#D9762A;
+    --char:#241D19;
+    --char-2:#332A24;
+    --bone:#F6EFE4;
+    --good:#4E6B33;
+
+    --maxw:980px;
+    color-scheme:light;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:0;
+  }
+
+  h1,h2,h3,h4{
+    font-family:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.012em;
+    text-wrap:balance;
+    margin:0;
+    line-height:.94;
+    font-weight:800;
+  }
+
+  p{margin:0 0 1em}
+  p:last-child{margin-bottom:0}
+
+  a{color:var(--ember-deep)}
+
+  .mono{
+    font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:600;
+    margin:0 0 10px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    background:var(--char);
+    color:var(--bone);
+    border-bottom:6px solid var(--ember);
+  }
+  .masthead .wrap{padding-block:48px 40px}
+
+  .mh-top{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 24px;
+    align-items:baseline;
+    justify-content:space-between;
+    border-bottom:1px solid #4A3E36;
+    padding-bottom:14px;
+    margin-bottom:28px;
+  }
+  .mh-mark{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:#C9B9A8;
+  }
+  .mh-mark b{color:var(--flame);font-weight:600}
+
+  .masthead h1{
+    font-size:clamp(46px,10.5vw,104px);
+    font-weight:900;
+    color:var(--bone);
+    line-height:.86;
+    letter-spacing:-.005em;
+  }
+  .masthead h1 em{
+    font-style:normal;
+    display:block;
+    color:var(--flame);
+  }
+  .mh-sub{
+    margin-top:22px;
+    max-width:60ch;
+    color:#DCCDBD;
+    font-size:17px;
+  }
+
+  .mh-meta{
+    margin-top:32px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px;
+    background:#4A3E36;
+    border:1px solid #4A3E36;
+  }
+  .mh-meta div{background:var(--char-2);padding:12px 14px}
+  .mh-meta dt{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#9E8D7E;
+    margin:0 0 4px;
+  }
+  .mh-meta dd{margin:0;font-size:14px;font-weight:600;color:var(--bone)}
+
+  /* ---------- sections ---------- */
+  section{padding-block:56px}
+  section + section{border-top:1px solid var(--rule)}
+
+  .sec-head{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:28px;
+  }
+  .sec-num{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--bone);
+    background:var(--ember);
+    padding:5px 9px;
+    letter-spacing:.06em;
+    flex:none;
+    margin-top:6px;
+  }
+  .sec-head h2{
+    font-size:clamp(30px,5.6vw,50px);
+    font-weight:800;
+  }
+  .sec-head .lede{
+    margin-top:10px;
+    color:var(--ink-soft);
+    max-width:66ch;
+    font-size:16.5px;
+  }
+
+  /* ---------- findings ---------- */
+  .findings{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--rule);
+    border-block:1px solid var(--rule-hard);
+  }
+  .find{
+    background:var(--paper);
+    display:grid;
+    grid-template-columns:62px 1fr 108px;
+    gap:16px;
+    padding:16px 4px 16px 0;
+    align-items:start;
+  }
+  .find-id{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--smoke);
+    padding-top:2px;
+  }
+  .find h4{
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:.02em;
+    margin-bottom:5px;
+  }
+  .find p{
+    font-size:14.5px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .find p + p{margin-top:6px}
+  .fix{
+    color:var(--ember-deep);
+    font-weight:500;
+  }
+  .fix b{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+
+  .sev{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    padding:4px 7px;
+    text-align:center;
+    justify-self:end;
+    white-space:nowrap;
+    margin-top:2px;
+  }
+  .sev-crit{background:var(--ember);color:var(--bone)}
+  .sev-high{background:var(--peach-deep);color:var(--ember-deep)}
+  .sev-med{background:transparent;color:var(--smoke);border:1px solid var(--rule-hard)}
+  .sev-up{background:var(--good);color:var(--bone)}
+
+  @media (max-width:640px){
+    .find{grid-template-columns:52px 1fr;gap:10px}
+    .sev{grid-column:2;justify-self:start;margin-top:8px}
+  }
+
+  /* ---------- thesis ---------- */
+  .thesis{
+    background:var(--char);
+    color:var(--bone);
+    padding:32px 30px;
+    border-left:6px solid var(--flame);
+  }
+  .thesis .big{
+    font-family:"Big Shoulders Display",sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(26px,5vw,40px);
+    font-weight:800;
+    line-height:1;
+    color:var(--bone);
+    margin:0 0 18px;
+    text-wrap:balance;
+  }
+  .thesis .big i{font-style:normal;color:var(--flame)}
+  .thesis p{color:#DCCDBD;max-width:64ch}
+
+  .quotes{
+    margin-top:26px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:14px;
+  }
+  .quote{
+    background:var(--char-2);
+    padding:14px 16px;
+    border-top:2px solid var(--flame);
+  }
+  .quote p{
+    font-size:14px;
+    font-style:italic;
+    color:#E4D6C7;
+    margin:0 0 8px;
+    line-height:1.5;
+  }
+  .quote span{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#9E8D7E;
+  }
+
+  /* ---------- generic blocks ---------- */
+  .cols{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:26px;
+  }
+  .block h4{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:8px;
+    padding-bottom:7px;
+    border-bottom:2px solid var(--ink);
+    letter-spacing:.02em;
+  }
+  .block p, .block li{font-size:14.5px;color:var(--ink-soft);line-height:1.58}
+  .block ul{margin:0;padding-left:17px}
+  .block li{margin-bottom:5px}
+  .block li::marker{color:var(--ember)}
+
+  /* ---------- token swatches ---------- */
+  .swatches{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+    gap:10px;
+    margin:18px 0 8px;
+  }
+  .sw{border:1px solid var(--rule-hard)}
+  .sw i{display:block;height:46px}
+  .sw span{
+    display:block;
+    padding:6px 8px;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    line-height:1.5;
+    letter-spacing:.06em;
+    background:var(--paper);
+  }
+  .sw span b{display:block;font-weight:600;text-transform:uppercase;letter-spacing:.12em}
+  .sw span em{font-style:normal;color:var(--smoke)}
+
+  /* ---------- LP archetypes ---------- */
+  .lp{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:26px;
+    padding-block:28px;
+    align-items:start;
+  }
+  .lp + .lp{border-top:1px solid var(--rule)}
+  @media (max-width:720px){
+    .lp{grid-template-columns:1fr;gap:18px}
+  }
+
+  /* schematic wireframe */
+  .wf{
+    background:var(--char);
+    padding:9px;
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    border:1px solid var(--char);
+  }
+  .wf b{
+    display:block;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:8.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    font-weight:500;
+    color:#9E8D7E;
+    padding:5px 7px;
+    background:var(--char-2);
+    line-height:1.3;
+  }
+  .wf b.hero{
+    background:var(--ember);
+    color:#fff;
+    font-weight:600;
+    padding:13px 7px;
+  }
+  .wf b.cta{background:var(--flame);color:#241D19;font-weight:600;text-align:center}
+  .wf b.proof{background:#463A32;color:#D8C8B8}
+  .wf .row{display:flex;gap:5px}
+  .wf .row b{flex:1;text-align:center}
+
+  .lp-body h3{
+    font-size:25px;
+    font-weight:800;
+    margin-bottom:4px;
+  }
+  .lp-tag{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ember);
+    font-weight:600;
+    margin-bottom:9px;
+  }
+  .lp-body p{font-size:14.5px;color:var(--ink-soft)}
+  .lp-facts{
+    margin-top:12px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px;
+    background:var(--rule-hard);
+    border:1px solid var(--rule-hard);
+  }
+  .lp-facts div{background:var(--peach);padding:8px 10px}
+  .lp-facts dt{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:9.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ember-deep);
+    margin:0 0 2px;
+    font-weight:600;
+  }
+  .lp-facts dd{margin:0;font-size:13.5px;font-weight:500;line-height:1.4}
+
+  /* ---------- LP-01 showcase ---------- */
+  .showcase{
+    background:var(--char);
+    color:var(--bone);
+    border-left:6px solid var(--flame);
+    padding:30px 28px;
+    margin-bottom:6px;
+  }
+  .showcase .eyebrow{color:var(--flame)}
+  .showcase h3{
+    font-size:clamp(28px,5.2vw,44px);
+    color:var(--bone);
+    font-weight:900;
+    margin-bottom:12px;
+  }
+  .showcase h3 em{font-style:normal;color:var(--flame)}
+  .showcase p{color:#DCCDBD;max-width:62ch;font-size:15.5px}
+  .showcase-cta{
+    display:inline-block;
+    margin-top:20px;
+    background:var(--ember);
+    color:var(--bone);
+    font-family:"Big Shoulders Display",sans-serif;
+    text-transform:uppercase;
+    font-weight:800;
+    font-size:21px;
+    letter-spacing:.03em;
+    padding:13px 26px;
+    text-decoration:none;
+  }
+  .showcase-cta:hover{background:var(--ember-deep);color:var(--bone)}
+  .showcase-note{
+    margin-top:14px;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    color:#9E8D7E;
+    line-height:1.6;
+  }
+
+  /* ---------- roadmap ---------- */
+  .temps{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+  .temp{border:1px solid var(--rule-hard);background:var(--peach)}
+  .temp header{
+    padding:16px 18px 13px;
+    border-bottom:1px solid var(--rule-hard);
+  }
+  .temp.sear header{background:var(--ember);color:var(--bone);border-color:var(--ember)}
+  .temp.slow header{background:var(--char);color:var(--bone);border-color:var(--char)}
+  .temp .deg{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:27px;
+    font-weight:600;
+    line-height:1;
+    display:block;
+  }
+  .temp header h4{
+    font-size:24px;
+    font-weight:800;
+    margin-top:6px;
+    color:inherit;
+  }
+  .temp header p{
+    margin:6px 0 0;
+    font-size:13px;
+    line-height:1.45;
+    opacity:.85;
+  }
+  .temp ol{
+    margin:0;
+    padding:16px 18px 18px 34px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .temp li{margin-bottom:8px;line-height:1.55}
+  .temp li::marker{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;
+    color:var(--ember-deep);
+    font-weight:600;
+  }
+  .temp li b{color:var(--ink);font-weight:600}
+
+  /* ---------- tables ---------- */
+  .tbl-wrap{overflow-x:auto;border-block:1px solid var(--rule-hard)}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+  th,td{
+    text-align:left;
+    padding:11px 13px 11px 0;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+  th{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--ember-deep);
+    font-weight:600;
+    border-bottom:1px solid var(--rule-hard);
+  }
+  tbody tr:last-child td{border-bottom:none}
+  td b{font-weight:600}
+  td.ph{color:var(--smoke);font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+  .phase-tag{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    font-weight:600;
+    color:var(--ember);
+    white-space:nowrap;
+  }
+
+  /* ---------- kpi ---------- */
+  .kpis{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+    gap:1px;
+    background:var(--rule-hard);
+    border:1px solid var(--rule-hard);
+  }
+  .kpi{background:var(--paper);padding:15px 16px}
+  .kpi dt{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--smoke);
+    margin:0 0 6px;
+  }
+  .kpi dd{
+    margin:0;
+    font-family:"Big Shoulders Display",sans-serif;
+    font-size:30px;
+    font-weight:800;
+    line-height:1;
+    color:var(--ember);
+    text-transform:uppercase;
+  }
+  .kpi dd small{
+    display:block;
+    font-family:"IBM Plex Sans",sans-serif;
+    font-size:12.5px;
+    font-weight:400;
+    color:var(--ink-soft);
+    margin-top:7px;
+    line-height:1.45;
+    text-transform:none;
+  }
+
+  /* ---------- needs / footer ---------- */
+  .needs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+    gap:12px;
+  }
+  .need{
+    border:1px solid var(--rule-hard);
+    background:var(--peach);
+    padding:13px 15px;
+  }
+  .need h4{
+    font-size:17px;
+    font-weight:700;
+    margin-bottom:4px;
+  }
+  .need p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.5}
+
+  .closer{
+    background:var(--char);
+    color:var(--bone);
+    border-top:6px solid var(--ember);
+  }
+  .closer .wrap{padding-block:44px}
+  .closer h2{
+    font-size:clamp(28px,6vw,52px);
+    color:var(--bone);
+    font-weight:900;
+  }
+  .closer h2 em{font-style:normal;color:var(--flame)}
+  .closer p{color:#DCCDBD;max-width:60ch;margin-top:16px}
+  .closer .sig{
+    margin-top:28px;
+    padding-top:16px;
+    border-top:1px solid #4A3E36;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:#9E8D7E;
+  }
+
+  .note{
+    margin-top:18px;
+    padding:12px 15px;
+    border-left:3px solid var(--rule-hard);
+    background:var(--peach);
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.55;
+  }
+  .note b{color:var(--ink)}
+
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth}
+  }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mh-top">
+      <div class="mh-mark">Prepared for <b>Dead Meat Society</b></div>
+      <div class="mh-mark">Confidential &middot; Sept 2026</div>
+    </div>
+    <h1>Stop Selling<br>Tools.<em>Sell the<br>Cookout.</em></h1>
+    <p class="mh-sub">A conversion, branding and landing-page program for deadmeatsociety.com &mdash; built as a reusable Figma design system, shipped as native Shopify sections, and tested until the winners are obvious.</p>
+    <dl class="mh-meta">
+      <div><dt>Engagement</dt><dd>CRO + Design + Build</dd></div>
+      <div><dt>Deliverable</dt><dd>Figma &rarr; Shopify Liquid</dd></div>
+      <div><dt>Output</dt><dd>6 landing-page archetypes</dd></div>
+      <div><dt>Timeline</dt><dd>2-week sprint &middot; 10 days</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- 01 AUDIT -->
+<section id="audit">
+  <div class="sec-head">
+    <div class="sec-num">01</div>
+    <div>
+      <h2>What We Found on the Site Today</h2>
+      <p class="lede">We went through the homepage and the Dead Skull Spatula page on desktop and mobile before writing a word of this. Twelve findings, numbered for reference. Nothing here is theoretical &mdash; every item is something we observed on the live store.</p>
+    </div>
+  </div>
+
+  <div class="findings">
+
+    <div class="find">
+      <div class="find-id">F&#8209;01</div>
+      <div>
+        <h4>The hero sells a feeling, not a product</h4>
+        <p>&ldquo;A Movement for Grilling Enthusiasts&rdquo; is brand poetry above a motion-blurred video. A first-time visitor from an ad sees no product, no price, no offer, and no reason to act. The headline also breaks mid-word &mdash; &ldquo;ENTHUSIAST / S&rdquo; wraps onto two lines at desktop width, which reads as a broken page.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Hero must answer four things in one screen: what it is, why it&rsquo;s better, what it costs, what to do next. Brand line moves to a band underneath.</p>
+      </div>
+      <div class="sev sev-crit">Critical</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;02</div>
+      <div>
+        <h4>Typo in the welcome popup &mdash; the first thing every visitor sees</h4>
+        <p>The entry popup reads &ldquo;YOU&rsquo;VE GOT AN <b>EXLCUSIVE</b> WELCOME KIT.&rdquo; It is the very first impression, it sits over a $59.99 offer, and for a brand charging premium prices for a spatula, a misspelling at the door quietly costs trust before anyone reaches a product.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Same-day correction. Costs nothing, protects everything downstream.</p>
+      </div>
+      <div class="sev sev-crit">Critical</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;03</div>
+      <div>
+        <h4>Mobile: two overlays cover the product</h4>
+        <p>On a 375px phone, the sticky &ldquo;Exclusive Welcome Offer&rdquo; rail runs down the left edge over the image thumbnails and the product title, while the chat bubble sits on the right and clips the charity line to &ldquo;donated to cha&hellip;&rdquo;. Most Shopify traffic is mobile, so this is the version that actually matters.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Collapse the offer rail to a dismissible bottom bar, delay chat until scroll depth &gt;50%, and keep a clear channel around price and Add to Cart.</p>
+      </div>
+      <div class="sev sev-high">High</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;04</div>
+      <div>
+        <h4>Wrong reviews on the wrong product</h4>
+        <p>The Dead Skull Spatula page shows reviews that are plainly about the tongs &mdash; &ldquo;Tongs that grip, lift and look great&hellip; love the lock&rdquo;. A shopper comparing tools reads this as padded or careless social proof, exactly where they are deciding whether to trust a $54.99 price.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Filter the review widget to the product, with a separate &ldquo;All Society reviews&rdquo; tab below it.</p>
+      </div>
+      <div class="sev sev-high">High</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;05</div>
+      <div>
+        <h4>21 reviews carrying a premium price</h4>
+        <p>4.95 out of 5 is excellent. Twenty-one reviews is thin for a tool priced 4&ndash;5&times; the supermarket alternative. Review <em>volume</em>, not just rating, is what makes a high price feel safe.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Post-purchase review flow with photo incentive; pull the strongest existing lines into the page as designed pull-quotes rather than leaving them in the widget.</p>
+      </div>
+      <div class="sev sev-high">High</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;06</div>
+      <div>
+        <h4>The free-shipping threshold is invisible &mdash; and the mid bundle misses it</h4>
+        <p>Free shipping starts at $150. The hero spatula is $54.99, leaving a $95.01 gap that is never shown to the shopper. Worse, the Dead Grill Station Kit at <span class="mono">$119.99</span> lands <span class="mono">$30.01</span> short of the threshold &mdash; the bundle built to raise order value doesn&rsquo;t clear the bar built to raise order value.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Add a cart progress bar (&ldquo;$30.01 to free shipping&rdquo;) and either reprice that kit to $149.99 or drop the threshold to $120. This is the single fastest AOV win on the store.</p>
+      </div>
+      <div class="sev sev-high">High</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;07</div>
+      <div>
+        <h4>The bundle discount is too shallow to drive the trade-up</h4>
+        <p>The OG DMS Toolkit is $249.99 against $279.94 &mdash; a <span class="mono">10.7%</span> saving. Shoppers are trained to expect 15&ndash;25% for committing to a kit. At 10.7% the bundle reads as a rounding error rather than a deal, so the AOV lift it was designed for doesn&rsquo;t fire.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Restructure to a tiered kit builder where the saving visibly grows with each tool added, and anchor the à-la-carte total right beside it.</p>
+      </div>
+      <div class="sev sev-med">Medium</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;08</div>
+      <div>
+        <h4>Scroll-jacked hero delays every product</h4>
+        <p>The opening section pins and plays through on scroll &mdash; eight full wheel scrolls barely advanced the page. Paid traffic lands with intent and a few seconds of patience; making them scrub through a cinematic before seeing a product bleeds sessions.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Cap the pinned sequence, or drop it entirely on paid landing pages. Products within one screen of the fold.</p>
+      </div>
+      <div class="sev sev-med">Medium</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;09</div>
+      <div>
+        <h4>&ldquo;Limited to 500&rdquo; is real scarcity, used as a footnote</h4>
+        <p>The OG Toolkit is genuinely capped at 500 units &mdash; that is honest, verifiable scarcity, which is rare and valuable. Right now it lives inside a long product title where nobody reads it.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Surface a live &ldquo;X of 500 claimed&rdquo; counter on the bundle page. Only ever show a real number.</p>
+      </div>
+      <div class="sev sev-med">Medium</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;10</div>
+      <div>
+        <h4>Red means four different things</h4>
+        <p>The brand red currently carries the logo, the sale badges, the offer rail and the Add to Cart button. When the action colour is also the decoration colour, the eye stops treating it as &ldquo;click here&rdquo; and the primary CTA loses its pull on a black page.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Reserve one exact red for actions only. Badges and brand marks move to bone, char, or a second accent.</p>
+      </div>
+      <div class="sev sev-med">Medium</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;11</div>
+      <div>
+        <h4>No reassurance where the money decision happens</h4>
+        <p>Shipping terms, returns and secure-checkout copy all exist &mdash; at the very bottom of the product page. The doubts they answer occur at the price, not after the reviews.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Compact trust row directly under Add to Cart: returns window, secure checkout, ships-by date, guarantee.</p>
+      </div>
+      <div class="sev sev-med">Medium</div>
+    </div>
+
+    <div class="find">
+      <div class="find-id">F&#8209;12</div>
+      <div>
+        <h4>The charity story is the differentiator and it&rsquo;s set in body text</h4>
+        <p>10% of net profits donated is the one thing no competitor can copy overnight, and it converts &mdash; particularly for gift buyers, who need permission to spend $55 on a spatula. It currently appears as a single line of small type.</p>
+        <p class="fix"><b>Fix &rsaquo;</b> Make it a designed above-fold component with the partner logos, and give it a named block in the component library so every landing page inherits it.</p>
+      </div>
+      <div class="sev sev-up">Upside</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 02 THESIS -->
+<section id="thesis">
+  <div class="sec-head">
+    <div class="sec-num">02</div>
+    <div>
+      <h2>The Strategic Read</h2>
+      <p class="lede">Before any design work, we need agreement on what is actually being bought. The reviews on your own site answer it more clearly than any brief could.</p>
+    </div>
+  </div>
+
+  <div class="thesis">
+    <p class="big">Nobody needs a $54.99 spatula. They want to be <i>the guy who owns one.</i></p>
+    <p>The site currently sells community in the abstract &mdash; a movement, a tribe, a set of commandments. Your customers describe something much more concrete and much easier to sell: the moment a guest picks up the tool and asks where they got it. That is a status purchase wearing a utility purchase&rsquo;s clothes, and it should be the spine of every landing page we build.</p>
+    <p style="margin-top:14px">The commandments, the Society, and the charity commitment are not the pitch &mdash; they are the <em>justification</em> that makes the status purchase feel earned. Lead with the cookout. Close with the Society.</p>
+    <div class="quotes">
+      <div class="quote">
+        <p>&ldquo;Guests are constantly asking me where they can get one.&rdquo;</p>
+        <span>Barry K. &middot; Verified</span>
+      </div>
+      <div class="quote">
+        <p>&ldquo;This tool upgraded my BBQ image for sure.&rdquo;</p>
+        <span>Barry K. &middot; Verified</span>
+      </div>
+      <div class="quote">
+        <p>&ldquo;Instantly, people are like &lsquo;oh that&rsquo;s cool dude, who makes that all?&rsquo;&rdquo;</p>
+        <span>Joshua Brown &middot; Verified</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Why this matters for testing:</b> it gives us a real hypothesis to test rather than cosmetic variants. Test 1 becomes &ldquo;status/social angle vs. current movement angle&rdquo; &mdash; a swing big enough to move a number, instead of a button-colour test that never reaches significance at your traffic level.
+  </div>
+</section>
+
+<!-- 03 BRAND -->
+<section id="brand">
+  <div class="sec-head">
+    <div class="sec-num">03</div>
+    <div>
+      <h2>Brand &amp; Design Direction</h2>
+      <p class="lede">The identity is good and we are not rebranding it. The skull, the black-and-red, the outlaw voice all work. What&rsquo;s missing is a <em>system</em> &mdash; defined tokens that keep it consistent, legible, and fast to build with.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="block">
+      <h4>Colour, with discipline</h4>
+      <p>Same brand world, but every colour gets exactly one job. Red stops being decoration and becomes the click.</p>
+      <div class="swatches">
+        <div class="sw"><i style="background:#121212"></i><span><b>Char</b><em>Ground</em></span></div>
+        <div class="sw"><i style="background:#BC3218"></i><span><b>Action</b><em>CTA only</em></span></div>
+        <div class="sw"><i style="background:#D9762A"></i><span><b>Flame</b><em>Accent</em></span></div>
+        <div class="sw"><i style="background:#F6EFE4"></i><span><b>Bone</b><em>Type</em></span></div>
+        <div class="sw"><i style="background:#4E6B33"></i><span><b>Verified</b><em>Trust</em></span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h4>Typography that survives mobile</h4>
+      <ul>
+        <li>Locked type scale with defined minimums &mdash; no more headlines breaking mid-word (<span class="mono">F-01</span>).</li>
+        <li>Condensed display face for headlines, capped at a width that never orphans a letter.</li>
+        <li>Body copy at a minimum 16px with a 4.5:1 contrast floor on the dark ground.</li>
+        <li>Numerals set to tabular so prices, savings and counters align in every table and cart.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h4>Photography direction</h4>
+      <ul>
+        <li>Retire the motion-blurred hero footage &mdash; movement reads as an unfinished page, not energy.</li>
+        <li>Every hero shot shows the tool <em>in hand, at the grill, with fire</em>, not floating on black.</li>
+        <li>One shot per page of the social moment: people around the cookout, not just product.</li>
+        <li>Product cutouts stay on char for consistency across the grid.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h4>New proof components</h4>
+      <ul>
+        <li>Star rating and review count beside price, not below the fold.</li>
+        <li>Trust row under Add to Cart (<span class="mono">F-11</span>).</li>
+        <li>Free-shipping progress bar (<span class="mono">F-06</span>).</li>
+        <li>Charity block with partner logos (<span class="mono">F-12</span>).</li>
+        <li>Honest scarcity counter for capped drops (<span class="mono">F-09</span>).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ARCHETYPES -->
+<section id="pages">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <div>
+      <h2>Six Landing Pages, Six Different Jobs</h2>
+      <p class="lede">These are the formats that reliably perform for a premium physical-product brand with a strong identity. Each one is matched to a traffic source and a single objective &mdash; building six variations of the same page teaches you nothing, but six different <em>angles</em> tell you what your market actually responds to. Listed in recommended build order.</p>
+    </div>
+  </div>
+
+  <div class="showcase">
+    <p class="eyebrow">Already built &middot; No charge</p>
+    <h3>LP-01 is designed.<em>Go look at it.</em></h3>
+    <p>Rather than ask you to approve a wireframe, we built the first landing page in full &mdash; real copy, real specs pulled from your product page, your own customers&rsquo; reviews, and the Dead Skull drawn to scale. It is the advertorial described below, finished.</p>
+    <p>There is a switch in the bottom-left corner marked <b>CRO Notes</b>. Flip it on and all nine zones light up &mdash; each one explains what it is doing and which finding from Section 01 it answers. That switch is for this presentation only; it would not ship on the live page.</p>
+    <a class="showcase-cta" href="DMS-Landing-Page-01.html" target="_blank" rel="noopener">Open the LP-01 design &rarr;</a>
+    <div class="showcase-note">Opens in a new tab &middot; Best viewed on a phone as well as desktop &mdash; the sticky Add to Cart bar and the mobile layout are part of the design, not an afterthought.</div>
+  </div>
+
+  <div class="lp">
+    <div class="wf">
+      <b class="hero">Story hook<br>&ldquo;Your spatula is<br>embarrassing you&rdquo;</b>
+      <b>Editorial body copy</b>
+      <b>Problem &middot; agitate</b>
+      <b class="cta">Soft CTA</b>
+      <b class="proof">Founder story</b>
+      <b class="proof">Review wall</b>
+      <b>Charity proof</b>
+      <b class="cta">Hard CTA + offer</b>
+    </div>
+    <div class="lp-body">
+      <div class="lp-tag">LP&#8209;01 &middot; <span style="color:var(--good)">&#10003; Designed</span></div>
+      <h3>The Advertorial</h3>
+      <p>Reads as an article, not a store. Opens on the cheap-tool problem, agitates the cookout embarrassment, then reveals the product as the answer. This is the highest-leverage format for cold paid traffic because it sells the <em>problem</em> before the price, which is exactly what a $54.99 spatula needs.</p>
+      <dl class="lp-facts">
+        <div><dt>Traffic</dt><dd>Cold &mdash; Meta / TikTok</dd></div>
+        <div><dt>Primary KPI</dt><dd>Add-to-cart rate</dd></div>
+        <div><dt>Status</dt><dd>Design complete &mdash; see above</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="lp">
+    <div class="wf">
+      <b class="hero">Product + price<br>+ offer</b>
+      <div class="row"><b class="proof">★ 4.95</b><b class="proof">21 reviews</b></div>
+      <b class="cta">Add to cart</b>
+      <b>Trust row</b>
+      <b>3 benefit blocks</b>
+      <b class="proof">Review wall</b>
+      <b>Spec table</b>
+      <b>FAQ</b>
+      <b class="cta">Sticky ATC</b>
+    </div>
+    <div class="lp-body">
+      <div class="lp-tag">LP&#8209;02 &middot; Build first</div>
+      <h3>The Direct-Response Product Page</h3>
+      <p>Everything the current PDP should be, rebuilt around the decision instead of around the description. Offer and proof above the fold, sticky Add to Cart on mobile, objections answered in order. This is your retargeting workhorse &mdash; the page people land on when they already know you.</p>
+      <dl class="lp-facts">
+        <div><dt>Traffic</dt><dd>Warm &middot; retargeting &middot; email</dd></div>
+        <div><dt>Primary KPI</dt><dd>Conversion rate</dd></div>
+        <div><dt>Fixes</dt><dd>F-03, F-04, F-11</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="lp">
+    <div class="wf">
+      <b class="hero">Build your kit</b>
+      <div class="row"><b>Tool</b><b>Tool</b><b>Tool</b></div>
+      <b class="proof">Saving grows as<br>you add</b>
+      <b>Anchor vs à-la-carte</b>
+      <b>X of 500 claimed</b>
+      <b class="cta">Add kit &mdash; save 22%</b>
+      <b>Free ship unlocked</b>
+    </div>
+    <div class="lp-body">
+      <div class="lp-tag">LP&#8209;03 &middot; Highest revenue impact</div>
+      <h3>The Kit Builder</h3>
+      <p>An AOV page, not a conversion page. Tiered pricing where the discount visibly deepens with each tool, anchored against the à-la-carte total, with the free-shipping bar and the 500-unit counter doing the closing. Directly attacks <span class="mono">F-06</span> and <span class="mono">F-07</span> &mdash; the two findings with the clearest dollar value attached.</p>
+      <dl class="lp-facts">
+        <div><dt>Traffic</dt><dd>All &mdash; plus post-ATC upsell</dd></div>
+        <div><dt>Primary KPI</dt><dd>Average order value</dd></div>
+        <div><dt>Fixes</dt><dd>F-06, F-07, F-09</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="lp">
+    <div class="wf">
+      <b class="hero">Gifts for the guy<br>who grills</b>
+      <div class="row"><b>Under $35</b><b>Under $75</b></div>
+      <div class="row"><b>The big one</b><b>Gift card</b></div>
+      <b class="proof">Order by Dec 15</b>
+      <b>Gift wrap + note</b>
+      <b class="cta">Shop by price</b>
+    </div>
+    <div class="lp-body">
+      <div class="lp-tag">LP&#8209;04 &middot; Seasonal</div>
+      <h3>The Gift Guide</h3>
+      <p>BBQ gear is overwhelmingly gifted, and gift buyers shop by budget, not by product. Price-tiered navigation, a shipping deadline that creates real urgency, and the charity story doing heavy lifting &mdash; it gives the buyer a reason the gift is thoughtful, not just expensive. Built once, re-skinned for Father&rsquo;s Day, Christmas and Memorial Day.</p>
+      <dl class="lp-facts">
+        <div><dt>Traffic</dt><dd>Seasonal paid + search</dd></div>
+        <div><dt>Primary KPI</dt><dd>Revenue per session</dd></div>
+        <div><dt>Reuse</dt><dd>3&times; per year</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="lp">
+    <div class="wf">
+      <b class="hero">What kind of<br>griller are you?</b>
+      <div class="row"><b>Burgers</b><b>Brisket</b></div>
+      <div class="row"><b>Steak</b><b>All of it</b></div>
+      <b class="proof">Your loadout &rarr;</b>
+      <b>Matched kit</b>
+      <b class="cta">Email to unlock offer</b>
+    </div>
+    <div class="lp-body">
+      <div class="lp-tag">LP&#8209;05 &middot; List growth</div>
+      <h3>The Griller-Type Quiz</h3>
+      <p>You are already asking &ldquo;what are you grilling the most?&rdquo; in the welcome popup &mdash; and then throwing the answer away on a flat discount. Turned into a full page, that same question segments the list, recommends a matched kit, and gives every future email a reason to be relevant. Cheapest first-party data you will ever collect.</p>
+      <dl class="lp-facts">
+        <div><dt>Traffic</dt><dd>Cold social &middot; top of funnel</dd></div>
+        <div><dt>Primary KPI</dt><dd>Email capture rate</dd></div>
+        <div><dt>Bonus</dt><dd>Segmented flows</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="lp">
+    <div class="wf">
+      <b class="hero">$12 supermarket<br>vs DMS</b>
+      <div class="row"><b>Them</b><b class="proof">Us</b></div>
+      <b>2mm 430 steel</b>
+      <b>17&Prime; &middot; serrated edge</b>
+      <b>Pass-it-down build</b>
+      <b class="proof">Cost per year</b>
+      <b class="cta">Upgrade for good</b>
+    </div>
+    <div class="lp-body">
+      <div class="lp-tag">LP&#8209;06 &middot; Objection handler</div>
+      <h3>The Comparison Page</h3>
+      <p>Built for the one objection that kills the sale: &ldquo;it&rsquo;s a spatula, why is it fifty-five dollars?&rdquo;. Your spec sheet already wins this fight &mdash; 2mm grade-430 steel, 17 inches, silicone overmould, dishwasher safe &mdash; it has just never been put next to the alternative. Reframes price as cost-per-year against a tool replaced every season.</p>
+      <dl class="lp-facts">
+        <div><dt>Traffic</dt><dd>Mid-funnel &middot; comparison search</dd></div>
+        <div><dt>Primary KPI</dt><dd>Assisted conversion</dd></div>
+        <div><dt>Fixes</dt><dd>Price objection</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 05 BUILD -->
+<section id="build">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <div>
+      <h2>How We Build It</h2>
+      <p class="lede">The reason six landing pages is realistic rather than six times the work: we design and code a component library once, then assemble pages from it. Page one is the expensive one. Page six takes days.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="block">
+      <h4>1 &middot; Design system in Figma</h4>
+      <p>Colour and type tokens, spacing scale, and every block above built as a Figma component with variants &mdash; desktop and mobile. Nothing gets designed twice, and every page inherits the same rules.</p>
+    </div>
+    <div class="block">
+      <h4>2 &middot; Coded as Shopify sections</h4>
+      <p>Each Figma component ships as a native Liquid section with schema settings. No page-builder app, no monthly fee, no third-party script slowing the store &mdash; and it stays in your theme if we ever part ways.</p>
+    </div>
+    <div class="block">
+      <h4>3 &middot; You keep control</h4>
+      <p>Because every section exposes settings, your team edits headlines, images, prices and offers directly in the Shopify theme editor. New page, new test, new season &mdash; no developer required for copy changes.</p>
+    </div>
+    <div class="block">
+      <h4>4 &middot; Speed is a feature</h4>
+      <p>Hand-written Liquid outperforms builder-generated markup on Core Web Vitals, and on mobile that difference is conversion, not vanity. We hold a performance budget on every page we ship.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>On Replo and the page builders:</b> they are genuinely good for non-technical teams shipping one-off pages, and if speed to first page is the only priority we can start there. But no builder imports Figma cleanly, they add a monthly cost and a script, and pages built in them don&rsquo;t survive leaving the app. Since a Figma design system is being produced either way, coding it straight to Liquid removes the middle layer instead of paying rent on it.
+  </div>
+</section>
+
+<!-- 06 ROADMAP -->
+<section id="roadmap">
+  <div class="sec-head">
+    <div class="sec-num">06</div>
+    <div>
+      <h2>The Testing Plan</h2>
+      <p class="lede">Two heats, run at the same time. Some fixes are worth shipping today with no test at all &mdash; nobody needs an experiment to justify correcting a typo. The rest is a structured programme.</p>
+    </div>
+  </div>
+
+  <div class="temps">
+    <div class="temp sear">
+      <header>
+        <span class="deg">450&deg;F</span>
+        <h4>Hot &amp; Fast</h4>
+        <p>Shipped on day one of the sprint. High certainty, no test required &mdash; these are defects, not hypotheses.</p>
+      </header>
+      <ol>
+        <li><b>Fix the popup typo</b> &mdash; F-02. Minutes of work.</li>
+        <li><b>Clear the mobile overlays</b> off the product title and CTA &mdash; F-03.</li>
+        <li><b>Filter reviews to the product</b> &mdash; F-04.</li>
+        <li><b>Add the free-shipping progress bar</b> and reprice the $119.99 kit over the threshold &mdash; F-06.</li>
+        <li><b>Fix the headline wrap</b> so no word breaks &mdash; F-01.</li>
+        <li><b>Trust row under Add to Cart</b> &mdash; F-11.</li>
+      </ol>
+    </div>
+
+    <div class="temp slow">
+      <header>
+        <span class="deg">225&deg;F</span>
+        <h4>Low &amp; Slow</h4>
+        <p>Begins once the six pages are live. One variable per test, two-week cycles, winners scaled.</p>
+      </header>
+      <ol>
+        <li><b>Angle test</b> &mdash; status/cookout vs. movement/community. The biggest swing we have.</li>
+        <li><b>Format test</b> &mdash; advertorial (LP-01) vs. direct-response (LP-02) on the same cold traffic.</li>
+        <li><b>Offer test</b> &mdash; kit discount depth, once LP-03 is live.</li>
+        <li><b>Proof placement</b> &mdash; reviews above vs. below the fold.</li>
+        <li><b>Capture test</b> &mdash; quiz (LP-05) vs. flat welcome discount.</li>
+        <li><b>Seasonal</b> &mdash; LP-04 live six weeks before each gifting peak.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>An honest word on statistics.</b> Proper A/B testing needs roughly 1,000+ sessions per variant before a result means anything. Unless the store is already at that volume per page, we run <em>sequential</em> tests on big swings rather than parallel splits on small ones, and we judge on add-to-cart rate and revenue per session &mdash; which move earlier and more visibly than conversion rate. We will confirm the real numbers in week one from your analytics and set the cadence to match. We would rather tell you a test is unreadable than hand you a false winner.
+  </div>
+</section>
+
+<!-- 07 SCOPE -->
+<section id="scope">
+  <div class="sec-head">
+    <div class="sec-num">07</div>
+    <div>
+      <h2>The Two-Week Sprint</h2>
+      <p class="lede">Ten working days from kickoff to all six pages live. This is deliberately structured as a sprint rather than a staged project: the component library is built once at the start, which is what makes pages four, five and six cost hours instead of weeks. Revenue-affecting fixes ship on day one, not at the end.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>What we deliver</th>
+          <th>Goes live</th>
+          <th>Investment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="phase-tag">DAY 1</span><br><b>Kickoff &amp; quick wins</b></td>
+          <td>Access set up, analytics baseline captured, KPIs agreed. All six <b>450&deg;F fixes shipped the same day</b> &mdash; typo, mobile overlays, review filtering, shipping progress bar, headline wrap, trust row.</td>
+          <td>&#10003; Live day 1</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag">DAYS 2&ndash;3</span><br><b>Design system</b></td>
+          <td>Figma library built: colour and type tokens, spacing scale, and every shared block &mdash; hero, trust row, review wall, charity block, spec table, sticky ATC, FAQ &mdash; as components with mobile variants.</td>
+          <td>Figma handover</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag">DAYS 4&ndash;5</span><br><b>Page design</b></td>
+          <td>LP-02 Direct-Response and LP-03 Kit Builder designed in full. LP-01 is already done &mdash; see Section 04 &mdash; so day four starts one page ahead.</td>
+          <td>Design review</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag">DAYS 6&ndash;7</span><br><b>Build the library</b></td>
+          <td>Every component coded as a native Shopify Liquid section with schema settings. LP-01 and LP-02 assembled, QA&rsquo;d on real devices, and pushed live with tracking attached.</td>
+          <td>&#10003; LP-01, LP-02</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag">DAYS 8&ndash;9</span><br><b>Assemble the rest</b></td>
+          <td>LP-03 Kit Builder, LP-04 Gift Guide and LP-06 Comparison designed and built from existing components. Fast because nothing new is being invented.</td>
+          <td>&#10003; LP-03, 04, 06</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag">DAY 10</span><br><b>Quiz, QA &amp; handover</b></td>
+          <td>LP-05 Quiz built and wired to the email platform. Full-device QA pass, Core Web Vitals check, tracking verified end to end, and a walkthrough session on editing every page from the theme editor.</td>
+          <td>&#10003; All six live</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+        <tr>
+          <td><span class="phase-tag">AFTER</span><br><b>Test &amp; iterate</b></td>
+          <td>Monthly retainer: run the 225&deg;F test calendar from Section 06, report results, build variants of winners, retire losers.</td>
+          <td>Ongoing</td>
+          <td class="ph">&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>What makes ten days possible &mdash; and what would break it.</b> This timeline is real, but it is a sprint, and sprints have conditions. We need all access granted on day one, a single named decision-maker who can approve within 24 hours, <b>one revision round per page rather than three</b>, and copy sign-off inside 48 hours of each design review. It also assumes we work from your <em>existing</em> photography &mdash; a new shoot cannot happen inside this window, so we will flag the gaps and design around them. If those conditions slip, the sprint stretches; nothing else about the scope changes.
+  </div>
+
+  <div class="note">
+    <b>Pricing to be inserted before this goes to the client.</b> The day structure, deliverables and timeline are firm; the investment column is left open so the figures match your rate card. We recommend quoting days 1&ndash;10 as a single fixed sprint fee and the test programme as a separate monthly retainer, so the client can approve the build without committing to the ongoing work on day one.
+  </div>
+</section>
+
+<!-- 08 KPI -->
+<section id="kpis">
+  <div class="sec-head">
+    <div class="sec-num">08</div>
+    <div>
+      <h2>How We&rsquo;ll Be Judged</h2>
+      <p class="lede">Baselines get set on day one from live analytics. These are the targets we would hold ourselves to over the first two quarters after the sprint ships.</p>
+    </div>
+  </div>
+
+  <dl class="kpis">
+    <div class="kpi"><dt>Primary</dt><dd>+15&ndash;30%<small>Conversion rate on paid landing traffic vs. the current homepage</small></dd></div>
+    <div class="kpi"><dt>Revenue</dt><dd>+20%<small>Average order value, driven by the kit builder and shipping bar</small></dd></div>
+    <div class="kpi"><dt>List</dt><dd>2&ndash;3&times;<small>Email capture rate from the quiz vs. the flat welcome offer</small></dd></div>
+    <div class="kpi"><dt>Proof</dt><dd>100+<small>Product reviews within two quarters, from the post-purchase flow</small></dd></div>
+    <div class="kpi"><dt>Speed</dt><dd>&lt;2.5s<small>Largest Contentful Paint on mobile for every page we ship</small></dd></div>
+    <div class="kpi"><dt>Cadence</dt><dd>2 wk<small>One structured test concluded every fortnight</small></dd></div>
+  </dl>
+
+  <div class="note">
+    Ranges, not promises. Conversion work compounds and the honest answer is that the first two tests teach us how responsive this audience is. What we will commit to is the cadence and the reporting &mdash; you will always know what is being tested, what it cost, and what it returned.
+  </div>
+</section>
+
+<!-- 09 NEEDS -->
+<section id="needs">
+  <div class="sec-head">
+    <div class="sec-num">09</div>
+    <div>
+      <h2>What We Need to Start</h2>
+      <p class="lede">All of this can be gathered in a single kickoff call.</p>
+    </div>
+  </div>
+
+  <div class="needs">
+    <div class="need"><h4>Shopify access</h4><p>Collaborator account with theme and analytics permissions.</p></div>
+    <div class="need"><h4>Analytics</h4><p>GA4 and Shopify Analytics read access, so baselines are real rather than assumed.</p></div>
+    <div class="need"><h4>Ad accounts</h4><p>Meta and any other channel, read-only &mdash; we need to see which creative the landing pages must match.</p></div>
+    <div class="need"><h4>Brand assets</h4><p>Logo files, fonts and licences, and any existing brand guide.</p></div>
+    <div class="need"><h4>Photography</h4><p>Full library. We will flag the gaps &mdash; in-hand and cookout shots are the likely shortfall.</p></div>
+    <div class="need"><h4>Reviews platform</h4><p>Admin access to configure per-product filtering and the post-purchase flow.</p></div>
+  </div>
+</section>
+
+</div>
+
+<footer class="closer">
+  <div class="wrap">
+    <h2>Twelve findings. Six pages.<br><em>Ten working days.</em></h2>
+    <p>The fastest wins are sitting in plain sight &mdash; a typo at the front door, a bundle priced under its own free-shipping threshold, and reviews for the wrong product on a page asking for $54.99. Those ship on day one. The first landing page is already designed and waiting in Section 04. The rest is ten days of work and a decision.</p>
+    <div class="sig">Dead Meat Society &middot; Conversion &amp; Landing Page Program &middot; September 2026</div>
+  </div>
+</footer>
