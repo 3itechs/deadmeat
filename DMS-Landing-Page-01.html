@@ -411,9 +411,12 @@
   .stick .btn{font-size:15px;padding:11px 20px;flex:none}
 
   /* ============ CRO ANNOTATION LAYER ============ */
-  .anno-toggle{
+  .ctrls{
     position:fixed;z-index:80;
     left:var(--gut);bottom:calc(76px + env(safe-area-inset-bottom,0px));
+    display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  }
+  .anno-toggle{
     background:#100E0D;color:var(--bone);
     border:1px solid var(--flame);border-radius:999px;
     font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;
@@ -444,6 +447,42 @@
     .anno-toggle .sw i{width:11px;height:11px}
     .anno-toggle[aria-pressed="true"] .sw i{transform:translateX(13px)}
   }
+
+  /* ============ IMAGE LAYER ============ */
+  /* The photo sits on top of the placeholder gradient, so if a file is
+     missing the slot falls back to the gradient instead of breaking. */
+  body.show-img .img-hero{
+    background:url("images/hero.jpg") center 42%/cover no-repeat,
+      radial-gradient(95% 78% at 50% 108%,#F0621E 0%,#B32A0C 24%,#5A1A0A 48%,#241310 70%,#120D0B 100%);
+  }
+  body.show-img .img-problem{
+    background:url("images/problem-cheap-spatula.jpg") center/cover no-repeat,
+      radial-gradient(85% 75% at 30% 20%,#4A4F52 0%,#2C3033 40%,#17191A 75%,#101112 100%);
+  }
+  body.show-img .img-stakes{
+    background:url("images/stakes-brisket.jpg") center/cover no-repeat,
+      radial-gradient(90% 80% at 62% 34%,#8C3A22 0%,#4E1E12 42%,#241310 74%,#130C0A 100%);
+  }
+  @media (max-width:880px){ body.show-img .img-hero{background-position:center 58%,0 0} }
+
+  body.show-img .has-img .shot-brief,
+  body.show-img .has-img .hero-art,
+  body.show-img .has-img .shot-tag{display:none}
+  body.show-img .has-img::after{opacity:.06}
+  body.show-img .has-img::before{
+    content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+    box-shadow:inset 0 0 70px rgba(0,0,0,.45);
+  }
+
+  .ai-tag{display:none}
+  body.show-img.show-anno .has-img .ai-tag{
+    display:block;position:absolute;left:0;bottom:0;z-index:4;
+    font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:600;
+    letter-spacing:.15em;text-transform:uppercase;
+    background:var(--flame);color:#17110C;padding:5px 9px;
+  }
+  .img-note{display:none}
+  body.show-img .img-note{display:inline}
 
   /* zones */
   .zone{position:relative}
@@ -519,9 +558,14 @@
   </div>
 </div>
 
-<button class="anno-toggle" id="annoBtn" aria-pressed="false" title="Toggle the CRO annotation layer">
-  <span class="sw" aria-hidden="true"><i></i></span><span id="annoLabel">CRO Notes</span>
-</button>
+<div class="ctrls">
+  <button class="anno-toggle" id="imgBtn" aria-pressed="false" title="Show the photography layer">
+    <span class="sw" aria-hidden="true"><i></i></span><span id="imgLabel">Images</span>
+  </button>
+  <button class="anno-toggle" id="annoBtn" aria-pressed="false" title="Toggle the CRO annotation layer">
+    <span class="sw" aria-hidden="true"><i></i></span><span id="annoLabel">CRO Notes</span>
+  </button>
+</div>
 
 <!-- shared SVG gradients -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -561,8 +605,9 @@
           </div>
         </div>
 
-        <div class="shot shot-fire hero-shot">
+        <div class="shot shot-fire hero-shot has-img img-hero" role="img" aria-label="A griller flipping a burger over open flames">
           <span class="shot-tag">Photo 01 &middot; Hero</span>
+          <span class="ai-tag">AI comp &middot; replace before launch</span>
           <svg class="hero-art" viewBox="0 0 200 520" aria-label="The Dead Skull Spatula" role="img">
           <rect x="86" y="8" width="28" height="26" rx="9" fill="#D6301A"/>
           <rect x="93" y="14" width="5" height="14" rx="2.5" fill="#F03A21" opacity=".8"/>
@@ -593,7 +638,7 @@
       </div>
       <div class="anno">
         <b>Zone 1 &middot; Editorial framing + the thesis image</b>
-        Publisher kicker, byline and read-time make this read as an article rather than an ad &mdash; cold traffic will not accept a $54.99 price from a page that looks like a store. &ldquo;Sponsored&rdquo; stays visible because disclosure is required, and hiding it is how brands lose ad accounts. The image sits <em>beside</em> the headline rather than beneath it so both land above the fold on desktop; the photo has one job, which is to put the reader at their own cookout. A floating product cutout here would flip the page back into a store. Replaces the motion-blurred footage flagged in finding F-01.
+        Publisher kicker, byline and read-time make this read as an article rather than an ad &mdash; cold traffic will not accept a $54.99 price from a page that looks like a store. &ldquo;Sponsored&rdquo; stays visible because disclosure is required, and hiding it is how brands lose ad accounts. The image sits <em>beside</em> the headline rather than beneath it so both land above the fold on desktop; the photo has one job, which is to put the reader at their own cookout. A floating product cutout here would flip the page back into a store. Replaces the motion-blurred footage flagged in finding F-01.<span class="img-note"> <em>The current image is an AI-generated comp, and the tool in it is a generic spatula, not the Dead Skull. It must be replaced with real photography of the actual product before launch, or a shopper could reasonably take it for what they are buying.</em></span>
       </div>
     </div>
   </div>
@@ -626,16 +671,18 @@
   <div class="zone">
     <div class="zone-badge" aria-hidden="true">3</div>
     <div class="strip">
-      <div class="shot shot-smoke">
+      <div class="shot shot-smoke has-img img-problem" role="img" aria-label="A worn, scorched cheap spatula on a grey countertop">
         <span class="shot-tag">Photo 02 &middot; The problem</span>
+        <span class="ai-tag">AI comp</span>
         <div class="shot-brief">
           <b>Before</b>
           The cheap spatula, honestly shot. Bent head, scorched plastic handle, discoloured from the dishwasher. Flat grey light, no styling &mdash; it should look like something out of the reader&rsquo;s own drawer.
           <i>4:3 &middot; Cool, desaturated grade</i>
         </div>
       </div>
-      <div class="shot shot-meat">
+      <div class="shot shot-meat has-img img-stakes" role="img" aria-label="A smoked brisket with dark bark being lifted off a grill grate">
         <span class="shot-tag">Photo 03 &middot; The stakes</span>
+        <span class="ai-tag">AI comp</span>
         <div class="shot-brief">
           <b>After</b>
           A finished brisket being lifted clean off the grate on the Dead Skull. Steam, visible bark, the blade taking the full weight without flex.
@@ -645,7 +692,7 @@
     </div>
     <div class="anno">
       <b>Zone 3 &middot; Contrast pair</b>
-      Deliberately shot as a matched pair &mdash; same angle, same crop, opposite grade. The comparison does the persuading before a single specification is mentioned, and the two frames work as a scroll-stopping ad creative on their own.
+      Deliberately shot as a matched pair &mdash; same angle, same crop, opposite grade. The comparison does the persuading before a single specification is mentioned, and the two frames work as a scroll-stopping ad creative on their own.<span class="img-note"> <em>Both current frames are AI-generated comps. They are fine as mood imagery because neither one claims to show the Dead Skull, but a real matched pair shot on the same set will look more deliberate.</em></span>
     </div>
   </div>
 </div>
@@ -911,25 +958,31 @@
 </div>
 
 <script>
-  (function(){
-    var btn   = document.getElementById('annoBtn');
-    var label = document.getElementById('annoLabel');
-    var KEY   = 'dms-lp01-anno';
+  // Each switch toggles a body class and remembers its state per viewer.
+  function wireSwitch(btnId, labelId, cls, key, text, defaultOn){
+    var btn   = document.getElementById(btnId);
+    var label = document.getElementById(labelId);
 
     function paint(on){
-      document.body.classList.toggle('show-anno', on);
+      document.body.classList.toggle(cls, on);
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      label.textContent = on ? 'CRO Notes On' : 'CRO Notes';
+      label.textContent = on ? text + ' On' : text;
     }
 
-    var saved = false;
-    try { saved = localStorage.getItem(KEY) === '1'; } catch (e) {}
-    paint(saved);
+    var on = defaultOn;
+    try {
+      var saved = localStorage.getItem(key);
+      if (saved !== null) on = saved === '1';
+    } catch (e) {}
+    paint(on);
 
     btn.addEventListener('click', function(){
-      var on = !document.body.classList.contains('show-anno');
-      paint(on);
-      try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {}
+      var next = !document.body.classList.contains(cls);
+      paint(next);
+      try { localStorage.setItem(key, next ? '1' : '0'); } catch (e) {}
     });
-  })();
+  }
+
+  wireSwitch('imgBtn',  'imgLabel',  'show-img',  'dms-lp01-img',  'Images',    true);
+  wireSwitch('annoBtn', 'annoLabel', 'show-anno', 'dms-lp01-anno', 'CRO Notes', false);
 </script>

@@ -31,8 +31,15 @@ design that gets signed off is the same file that ships.
   on and all nine conversion zones are highlighted with an explanation of what
   each one does and which audit finding it answers. It is a presentation aid and
   would not ship on the live page.
-- Photography is marked with labelled placement slots carrying art direction
-  (ratio, grade, subject). These double as the shot list.
+- An **Images** switch (on by default) shows AI-generated comps from `images/`
+  in the three mood slots: hero, cheap spatula, brisket. Turn it off to see the
+  labelled placement slots with art direction, which double as the shot list.
+  With CRO Notes also on, each AI image is tagged "AI comp". These must be
+  replaced with real photography before launch; the hero comp shows a generic
+  spatula, not the Dead Skull.
+- Customer photos and the charity photo are intentionally **not** AI-generated.
+  Those slots stay as placeholders until real images exist.
+- Keep the `images/` folder next to the HTML files.
 - Fonts load from Google Fonts, so the pages need an internet connection to
   render exactly as designed.
 - Pricing in Section 07 is intentionally left blank, to be filled in before the
